@@ -6,6 +6,11 @@ import 'dashboard.dart';
 
 
 class MyAppzena extends StatelessWidget {
+  final String dat;
+  const MyAppzena({
+    super.key,
+    required this.dat,
+  });
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

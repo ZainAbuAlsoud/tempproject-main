@@ -32,6 +32,8 @@ dependencies:
   height_slider: ^1.3.2
   flutter_balloon_slider: "^0.1.1"
   syncfusion_flutter_gauges: ^18.2.55
+  pretty_gauge: ^1.0.1
+  share_plus: ^4.0.4
   flutter:
     sdk: flutter
   dio:

@@ -53,14 +53,26 @@ class _Loginpage extends State<Loginpage> {
   double hedingtop = 100;
   double loginhight = 0;
   double reghight = 0;
-  var email, password, token;
+  var email, password, token, email1, password1;
   final fieldText1 = TextEditingController();
   final fieldText2 = TextEditingController();
+  final fieldText3 = TextEditingController();
+  final fieldText4 = TextEditingController();
   bool flag = false;
+  static String arr = '';
 
   void clearText() {
     fieldText1.clear();
     fieldText2.clear();
+  }
+
+  void clearText1() {
+    fieldText3.clear();
+    fieldText4.clear();
+  }
+
+  set setArr(String name) {
+    arr = name;
   }
 
   @override
@@ -260,6 +272,8 @@ class _Loginpage extends State<Loginpage> {
                         ),
                         Expanded(
                           child: TextField(
+                            obscureText: true,
+                            obscuringCharacter: "*",
                             decoration: InputDecoration(
                               hintText: 'Enter Your password',
                               border: InputBorder.none,
@@ -284,12 +298,26 @@ class _Loginpage extends State<Loginpage> {
                     child: FloatingActionButton.extended(
                       onPressed: () {
                         AuthService().login(email, password).then((val) {
-                          if (val.data['success']) {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MyApp3(email: email,)));
-                          } else {
+                          if (val.data['success'] || AuthService.aa1==true) {
+                            AuthService().getData(email).then((val) {
+                              // arr = val.data['msg'];
+
+                              // Fluttertoast.showToast(
+                              //   msg: val.data['msg'],
+                              //   toastLength: Toast.LENGTH_SHORT,
+                              //   gravity: ToastGravity.BOTTOM,
+                              //   backgroundColor: Color.fromARGB(255, 0, 0, 0),
+                              //   textColor: Colors.white,
+                              //   fontSize: 16);
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MyApp3(
+                                            email: email,
+                                            dat: val.data['msg'],
+                                          )));
+                            });
+                          } else if(!val.data['success']) {
                             Fluttertoast.showToast(
                                 msg: 'Enter all fields',
                                 toastLength: Toast.LENGTH_SHORT,
@@ -378,9 +406,9 @@ class _Loginpage extends State<Loginpage> {
                                   EdgeInsets.symmetric(vertical: 20),
                             ),
                             onChanged: (val) {
-                              email = val;
+                              email1 = val;
                             },
-                            controller: fieldText1,
+                            controller: fieldText3,
                           ),
                         ),
                       ],
@@ -408,6 +436,8 @@ class _Loginpage extends State<Loginpage> {
                         ),
                         Expanded(
                           child: TextField(
+                            obscureText: true,
+                            obscuringCharacter: "*",
                             decoration: InputDecoration(
                               hintText: 'Enter Your password',
                               border: InputBorder.none,
@@ -415,9 +445,9 @@ class _Loginpage extends State<Loginpage> {
                                   EdgeInsets.symmetric(vertical: 20),
                             ),
                             onChanged: (val) {
-                              password = val;
+                              password1 = val;
                             },
-                            controller: fieldText2,
+                            controller: fieldText4,
                           ),
                         ),
                       ],
@@ -432,7 +462,7 @@ class _Loginpage extends State<Loginpage> {
                     height: 60,
                     child: FloatingActionButton.extended(
                       onPressed: () async {
-                        AuthService().check(email, password).then((val) {
+                        AuthService().check(email1, password1).then((val) {
                           if (val.data['success']) {
                             //user not found , so you can register
 
@@ -473,7 +503,7 @@ class _Loginpage extends State<Loginpage> {
                         //         fontSize: 16);
                         //   }
                         // });
-                        clearText();
+                        clearText1();
                         await Future.delayed(const Duration(seconds: 5));
 
                         if (AuthService.aa == true) {
@@ -489,7 +519,7 @@ class _Loginpage extends State<Loginpage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => secondd(
-                                        email: email,
+                                        email: email1,
                                       )));
 
                           // Navigator.pushReplacement(

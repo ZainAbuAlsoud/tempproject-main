@@ -8,16 +8,26 @@ import 'm1.dart';
 
 class dietApp extends StatelessWidget {
   // This widget is the root of your application.
+  final String dat;
+  const dietApp({
+    super.key,
+    required this.dat,
+  });
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage(),
+      home: MyHomePage(dat: dat,),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+   final String dat;
+  const MyHomePage({
+    super.key,
+    required this.dat,
+  });
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -40,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {
                     Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) =>  MyAppdiet()),
+                                  MaterialPageRoute(builder: (context) =>  MyAppdiet(dat: widget.dat,)),
                                          );
                   },
                 ),

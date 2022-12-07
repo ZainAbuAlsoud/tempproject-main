@@ -1,23 +1,34 @@
 import 'package:flutter/material.dart';
 
 
+import '../main2.dart';
 import 'd1.dart';
 
 
 //void main() => runApp(MyAppdiet());
 
 class MyAppdiet extends StatelessWidget {
+   final String dat;
+  const MyAppdiet({
+    super.key,
+    required this.dat,
+  });
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage(),
+      home: MyHomePage(dat: dat,),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  final String dat;
+  const MyHomePage({
+    super.key,
+    required this.dat,
+  });
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -38,7 +49,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: Icon(Icons.arrow_back_ios),
                   color: Colors.white,
                   onPressed: () {
-                    
+                     Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) =>
+                      MyApp3(email: widget.dat.split('-')[1],dat: widget.dat,)));
                   },
                 ),
                 Container(
@@ -129,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) =>
-                      DetailsPage(heroTag: imgPath, foodName: foodName)));
+                      DetailsPage(heroTag: imgPath, foodName: foodName,dat: widget.dat,)));
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

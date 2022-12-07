@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../constants.dart';
 import '../fordiet/m1.dart';
@@ -10,13 +10,15 @@ import '../screens/details_screen.dart';
 class CategoryCard extends StatelessWidget {
   final String svgSrc;
   final String title;
+  final String dat;
   //final Function press;
   const CategoryCard({
-   super. key,
+    super.key,
     required this.svgSrc,
     required this.title,
+    required this.dat
     //required this.press,
-  }) ;
+  });
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -38,23 +40,22 @@ class CategoryCard extends StatelessWidget {
         child: Material(
           color: Colors.transparent,
           child: InkWell(
-           
-            onTap:() {
-             // press;
-               if(title=="Start Your sessions"){
-             Navigator.push(context, MaterialPageRoute(builder: ((context) =>
-                               DetailsScreen()
-                           )));}
+            onTap: () {
+              // press;
+              if (title == "Start Your sessions") {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: ((context) => DetailsScreen(dat:dat))));
+              }
 
-                            if(title=="Vital Signs"){
-             Navigator.push(context, MaterialPageRoute(builder: ((context) =>
-                               MyAppzena()
-                           )));}
+              if (title == "Vital Signs") {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: ((context) => MyAppzena(dat:dat))));
+              }
 
-                           if(title=="Diet Types"){
-             Navigator.push(context, MaterialPageRoute(builder: ((context) =>
-                               MyAppdiet()
-                           )));}
+              if (title == "Diet Types") {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: ((context) => MyAppdiet(dat:dat))));
+              }
             },
             child: Padding(
               padding: const EdgeInsets.all(20.0),

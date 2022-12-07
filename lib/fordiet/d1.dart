@@ -8,8 +8,9 @@ import 'm2.dart';
 class DetailsPage extends StatefulWidget {
   final heroTag;
   final foodName;
+  final dat;
 
-  DetailsPage({this.heroTag, this.foodName});
+  DetailsPage({this.heroTag, this.foodName, this.dat});
 
   @override
   _DetailsPageState createState() => _DetailsPageState();
@@ -110,7 +111,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 width: MediaQuery.of(context).size.width,
                 color: Colors.transparent),
             Padding(
-            //top: 75.0,
+                //top: 75.0,
                 padding: EdgeInsets.only(top: 75),
                 child: Container(
                     decoration: BoxDecoration(
@@ -119,12 +120,15 @@ class _DetailsPageState extends State<DetailsPage> {
                           topRight: Radius.circular(45.0),
                         ),
                         color: Colors.white),
-                    height: MediaQuery.of(context).size.height+230,
+                    height: MediaQuery.of(context).size.height + 230,
                     width: MediaQuery.of(context).size.width)),
             Padding(
                 // top: 30.0,
                 // left: (MediaQuery.of(context).size.width / 2) - 100.0,
-                 padding: EdgeInsets.only(top: 30,left:(MediaQuery.of(context).size.width / 2) - 100.0, ),
+                padding: EdgeInsets.only(
+                  top: 30,
+                  left: (MediaQuery.of(context).size.width / 2) - 100.0,
+                ),
                 child: Hero(
                     tag: widget.heroTag,
                     child: Container(
@@ -139,9 +143,9 @@ class _DetailsPageState extends State<DetailsPage> {
                 // top: 250.0,
                 // left: 25.0,
                 // right: 25.0,
-                padding: EdgeInsets.only(top:250.0 ,left: 25,right: 25,bottom: 50),
+                padding: EdgeInsets.only(
+                    top: 250.0, left: 25, right: 25, bottom: 50),
                 child: Column(
-                  
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(widget.foodName,
@@ -1287,7 +1291,9 @@ class _DetailsPageState extends State<DetailsPage> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     FloatingActionButton.extended(
                       label: Text(
                         'Choose this diet',
@@ -1298,11 +1304,10 @@ class _DetailsPageState extends State<DetailsPage> {
                       ),
                       backgroundColor: Color(0xFF7A9BEE),
                       onPressed: () {
-                        
                         Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) =>  dietApp()),
-                                         );
+                          context,
+                          MaterialPageRoute(builder: (context) => dietApp(dat:widget.dat)),
+                        );
                       },
                     ),
                   ],

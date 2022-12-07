@@ -8,6 +8,11 @@ import '../pages/activity_timer.dart';
 import '../wedgits/bottom_nav_bar.dart';
 
 class DetailsScreen extends StatelessWidget {
+  final String dat;
+  const DetailsScreen({
+    super.key,
+    required this.dat,
+  });
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -45,20 +50,21 @@ class DetailsScreen extends StatelessWidget {
                     SizedBox(height: 10),
                     Text(
                       "3-10 MIN Course",
-                      style: TextStyle(fontWeight: FontWeight.bold ,fontSize: 20),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     SizedBox(height: 10),
                     SizedBox(
                       width: size.width * .6, // it just take 60% of total width
                       child: Text(
                         "Live happier and healthier by Trainning",
-                        style: TextStyle( fontSize: 17),
+                        style: TextStyle(fontSize: 17),
                       ),
                     ),
                     SizedBox(
                       width: size.width * .5, // it just take the 50% width
-                     // child: SearchBar(),
-                     height: size.height*.15,
+                      // child: SearchBar(),
+                      height: size.height * .15,
                     ),
                     Wrap(
                       spacing: 20,
@@ -68,7 +74,12 @@ class DetailsScreen extends StatelessWidget {
                           seassionNum: 1,
                           isDone: true,
                           press: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>ActivityDetail(tag: '',)));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ActivityDetail(
+                                          tag: '',
+                                        )));
                           },
                         ),
                         SeassionCard(
@@ -91,7 +102,7 @@ class DetailsScreen extends StatelessWidget {
                           seassionNum: 6,
                           press: () {},
                         ),
-                         SeassionCard(
+                        SeassionCard(
                           seassionNum: 7,
                           //isDone: true,
                           press: () {},
@@ -118,7 +129,7 @@ class DetailsScreen extends StatelessWidget {
                         ),
                         SeassionCard(
                           seassionNum: 13,
-                         // isDone: true,
+                          // isDone: true,
                           press: () {},
                         ),
                         SeassionCard(
@@ -143,7 +154,7 @@ class DetailsScreen extends StatelessWidget {
                         ),
                         SeassionCard(
                           seassionNum: 19,
-                         // isDone: true,
+                          // isDone: true,
                           press: () {},
                         ),
                         SeassionCard(
@@ -191,7 +202,6 @@ class DetailsScreen extends StatelessWidget {
                           seassionNum: 30,
                           press: () {},
                         ),
-
                       ],
                     ),
                     SizedBox(height: 10),
@@ -255,18 +265,17 @@ class DetailsScreen extends StatelessWidget {
   }
 }
 
-
 class SeassionCard extends StatelessWidget {
   final int seassionNum;
   final bool isDone;
   final Function press;
   const SeassionCard({
-   //required Key key,
-   super.key,
-  required  this.seassionNum,
+    //required Key key,
+    super.key,
+    required this.seassionNum,
     this.isDone = false,
-   required this.press,
-  }) ;
+    required this.press,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -293,15 +302,12 @@ class SeassionCard extends StatelessWidget {
             color: Colors.transparent,
             child: InkWell(
               onTap: () {
-                
                 press();
-                
               },
-             // onTap: press,
+              // onTap: press,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
-                  
                   children: <Widget>[
                     Container(
                       height: 30,

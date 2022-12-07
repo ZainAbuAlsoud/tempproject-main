@@ -1,16 +1,24 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tempproject/services/authservice.dart';
 
+import 'bmi/bmiCa.dart';
 import 'drawer_item.dart';
 import 'page3/mprofilepage.dart';
 import 'pages2/mainforprofile.dart';
 
-class NavigationDrawer extends StatelessWidget {
+class NavigationDrawer extends StatefulWidget {
   // const NavigationDrawer({Key? key}) : super(key: key);
   final String email;
+  final String dat;
+  NavigationDrawer({super.key, required this.email, required this.dat});
 
-  NavigationDrawer({super.key, required this.email});
+  @override
+  State<NavigationDrawer> createState() => _NavigationDrawerState();
+}
+
+class _NavigationDrawerState extends State<NavigationDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -20,7 +28,7 @@ class NavigationDrawer extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(24.0, 80, 24, 0),
           child: Column(
             children: [
-              headerWidget(email),
+              headerWidget(widget.email, widget.dat.split('-')[0]),
               SizedBox(
                 height: 40,
               ),
@@ -33,7 +41,7 @@ class NavigationDrawer extends StatelessWidget {
                 height: 40,
               ),
               DrawerItem(
-                name: 'People',
+                name: 'My BMI',
                 icon: Icons.people,
                 onPressed: () => onItemPressed(context, index: 0),
               ),
@@ -48,16 +56,9 @@ class NavigationDrawer extends StatelessWidget {
                 height: 30,
               ),
               DrawerItem(
-                  name: 'Chats',
+                  name: 'Statistics',
                   icon: Icons.message_outlined,
                   onPressed: () => onItemPressed(context, index: 2)),
-              SizedBox(
-                height: 30,
-              ),
-              DrawerItem(
-                  name: 'Favourites',
-                  icon: Icons.favorite_outline,
-                  onPressed: () => onItemPressed(context, index: 3)),
               SizedBox(
                 height: 30,
               ),
@@ -66,13 +67,6 @@ class NavigationDrawer extends StatelessWidget {
                 height: 10,
                 color: Colors.grey,
               ),
-              SizedBox(
-                height: 30,
-              ),
-              DrawerItem(
-                  name: 'Setting',
-                  icon: Icons.settings,
-                  onPressed: () => onItemPressed(context, index: 4)),
               SizedBox(
                 height: 30,
               ),
@@ -91,39 +85,29 @@ class NavigationDrawer extends StatelessWidget {
     Navigator.pop(context);
 
     switch (index) {
+      case 0:
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => scorescreen(
+                      dat: widget.dat,
+                    )));
+        break;
+
       case 1:
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => pprofile()));
+            context,
+            MaterialPageRoute(
+                builder: (context) => pprofile(
+                      dat: widget.dat,
+                    )));
         break;
+
+        
     }
   }
 
-  Widget headerWidget(String email) {
-    var s;
-    //const url = 'https://media.istockphoto.com/photos/learn-to-love-yourself-first-picture-id1291208214?b=1&k=20&m=1291208214&s=170667a&w=0&h=sAq9SonSuefj3d4WKy4KzJvUiLERXge9VgZO-oqKUOo=';
-    AuthService().profile(email).then((val) {
-      if (val.data['success']) {
-        String a = val.data['msg'];
-        s = a.split('-');
-        Future.delayed(const Duration(seconds: 1)).then((value) {});
-
-        Fluttertoast.showToast(
-            msg: a,
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            backgroundColor: Color.fromARGB(255, 0, 0, 0),
-            textColor: Colors.white,
-            fontSize: 16);
-      } else {
-        Fluttertoast.showToast(
-            msg: 'hh',
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            backgroundColor: Color.fromARGB(255, 0, 0, 0),
-            textColor: Colors.white,
-            fontSize: 16);
-      }
-    });
+  Widget headerWidget(String email, String name) {
     return Row(
       children: [
         CircleAvatar(
@@ -136,7 +120,7 @@ class NavigationDrawer extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('s',
+            Text(name,
                 style: TextStyle(
                     fontSize: 14, color: Color.fromARGB(255, 186, 104, 200))),
             SizedBox(

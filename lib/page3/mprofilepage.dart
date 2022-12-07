@@ -4,6 +4,11 @@ import 'profilepage.dart';
 
 class pprofile extends StatelessWidget {
   // This widget is the root of your application.
+   final String dat;
+
+  const pprofile(
+      {super.key,
+      required this.dat});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -12,7 +17,7 @@ class pprofile extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ProfilePage(),
+      home: ProfilePage(dat:dat),
     );
   }
 }

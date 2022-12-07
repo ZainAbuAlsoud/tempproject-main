@@ -4,6 +4,7 @@ import 'package:swipeable_button_view/swipeable_button_view.dart';
 import 'package:tempproject/main.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tempproject/services/authservice.dart';
+import 'bmi/bmiCa.dart';
 import 'main2.dart';
 
 const List<String> list = <String>[
@@ -75,7 +76,7 @@ class _choice extends State<choice> {
 
   //String dropdownValue = list.first;
   bool isFinished = false;
-  String name='';
+  String name = '';
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -122,44 +123,6 @@ class _choice extends State<choice> {
               name = val;
             },
           ),
-
-          // Container(
-          // child: Text(
-          //   'This help us create your personalised plan , you can always change this later',
-          //   style: TextStyle(
-          //     decoration: TextDecoration.none,
-          //     color: Color.fromARGB(248, 75, 14, 122),
-          //     fontSize: 15,
-          //     fontFamily: 'Lobster',
-          //   ),
-          //   textAlign: TextAlign.center,
-          // ),
-          // margin: EdgeInsets.only(bottom: 100),
-          // ),
-          // DropdownButton<String>(
-          //   value: dropdownValue,
-          //   icon: const Icon(Icons.arrow_downward),
-          //   elevation: 16,
-          //   style: const TextStyle(
-          //     color: Color.fromARGB(248, 75, 14, 122),
-          //   ),
-          //   underline: Container(
-          //     height: 2,
-          //     color: Color.fromARGB(248, 75, 14, 122),
-          //   ),
-          //   onChanged: (String? value) {
-          //     // This is called when the user selects an item.
-          //     setState(() {
-          //       dropdownValue = value!;
-          //     });
-          //   },
-          //   items: list.map<DropdownMenuItem<String>>((String value) {
-          //     return DropdownMenuItem<String>(
-          //       value: value,
-          //       child: Text(value),
-          //     );
-          //   }).toList(),
-          // ),
           SizedBox(
             height: 160,
           ),
@@ -190,17 +153,25 @@ class _choice extends State<choice> {
                     });
 
                     AuthService()
-                        .BMI(
-                      widget.email,
-                      widget.weight,
-                      widget.age,
-                      widget.height,
-                      name
-                    )
+                        .BMI(widget.email, widget.weight, widget.age,
+                            widget.height, name)
                         .then((val) {
                       if (val.data['success']) {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => MyApp3(email: widget.email,)));
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyApp3(
+                                      email: widget.email,
+                                      dat: name +
+                                          '-' +
+                                          widget.email +
+                                          '-' +
+                                          widget.weight +
+                                          '-' +
+                                          widget.height +
+                                          '-' +
+                                          widget.age,
+                                    )));
                       } else {
                         Fluttertoast.showToast(
                             msg: 'Enter all fields',
@@ -216,7 +187,19 @@ class _choice extends State<choice> {
                     await Navigator.pushReplacement(
                         context,
                         PageTransition(
-                            type: PageTransitionType.fade, child: MyApp3(email: widget.email)));
+                            type: PageTransitionType.fade,
+                            child: MyApp3(
+                              email: widget.email,
+                              dat: name +
+                                  '-' +
+                                  widget.email +
+                                  '-' +
+                                  widget.weight +
+                                  '-' +
+                                  widget.height +
+                                  '-' +
+                                  widget.age,
+                            )));
 
                     setState(() {
                       isFinished = false;
