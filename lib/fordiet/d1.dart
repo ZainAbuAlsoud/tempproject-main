@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
+import '../services/authservice.dart';
 import 'm2.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -22,13 +23,13 @@ class _DetailsPageState extends State<DetailsPage> {
       "Salmon\nEggs\nAlbacore Tuna\nSardines\nTurkey\nBeefs\nChicken";
 
   String myStringWithLinebreaks1 =
-      "Avocado\nCauliflower\nBerries\nGreen Beans\nBell Peppers\nSpinach\nBroccoli\nZucchini";
+      "Avocado\nGreen Beans\nBell Peppers\nSpinach\nBroccoli";
 
   String myStringWithLinebreaks2 =
-      "Cheese\nButter\nCottage Cheese\nHeavy Cream\nPlain Greek Yogurt\nSour Cream";
+      "Cheese\nButter\nHeavy Cream\nPlain Greek Yogurt";
 
   String myStringWithLinebreaks3 =
-      "Dark Chocolate\nAlternative Flours\nCocoa Poweder\nOlive Oil\nUnsweetened Coffe & Tea\nNuts & Seeds\nUnsweetened Plant_Based Milks";
+      "Dark Chocolate\nCocoa Poweder\nOlive Oil\nUnsweetened Coffe & Tea\nNuts & Seeds";
 
   String Paleo1 = "Chicken\nFish\nRed Meat";
   String Paleo2 =
@@ -76,6 +77,8 @@ class _DetailsPageState extends State<DetailsPage> {
   String sugar3 = "Kiwi\nApple\nPeach\nOrange\nPineaplle\nApricot";
   String sugar4 = "Almonds\nCashews\nSesame\nPeanuts";
   String sugar5 = "Salmon\nShrimp\nSardines";
+
+  static int count = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -227,7 +230,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 ),
                                 subtitle: Column(
                                     children: LineSplitter.split(
-                                            myStringWithLinebreaks1)
+                                            myStringWithLinebreaks2)
                                         .map((o) {
                                   return Row(
                                     crossAxisAlignment:
@@ -253,7 +256,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 ),
                                 subtitle: Column(
                                     children: LineSplitter.split(
-                                            myStringWithLinebreaks1)
+                                            myStringWithLinebreaks3)
                                         .map((o) {
                                   return Row(
                                     crossAxisAlignment:
@@ -1304,9 +1307,12 @@ class _DetailsPageState extends State<DetailsPage> {
                       ),
                       backgroundColor: Color(0xFF7A9BEE),
                       onPressed: () {
+                     
+                       
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => dietApp(dat:widget.dat)),
+                          MaterialPageRoute(
+                              builder: (context) => dietApp(dat: widget.dat)),
                         );
                       },
                     ),

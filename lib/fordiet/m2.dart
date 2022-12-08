@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-
+import '../services/authservice.dart';
 import 'd2.dart';
 import 'm1.dart';
 
@@ -16,14 +17,16 @@ class dietApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage(dat: dat,),
+      home: MyHomePage(
+        dat: dat,
+      ),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-   final String dat;
+  final String dat;
   const MyHomePage({
     super.key,
     required this.dat,
@@ -33,6 +36,50 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  static int count = 0;
+  // static late List<dynamic> streetsList;
+  static late List<dynamic> items;
+  set setCoutnnt(int c) {
+    count = c;
+  }
+
+  int get getCoutnt {
+    return count;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    AuthService().KETO().then((val) async {
+      _MyHomePageState.count = val.data['msg'];
+
+      await Future.delayed(const Duration(seconds: 5));
+    });
+    items = List<dynamic>.generate(count, (i) => 'Item $i');
+    AuthService().KETO1().then((value) async {
+      items = value.data['msg'];
+      // for (var i = 0; i < count; i++) {
+      // Fluttertoast.showToast(
+      //     msg: getCoutnt.toString(),
+      //     toastLength: Toast.LENGTH_SHORT,
+      //     gravity: ToastGravity.BOTTOM,
+      //     backgroundColor: Color.fromARGB(255, 0, 0, 0),
+      //     textColor: Colors.white,
+      //     fontSize: 16);
+      await Future.delayed(const Duration(seconds: 3));
+      // }
+    });
+
+    // items = List<dynamic>.generate(count, (i) => items[i]['msg']);
+    // Fluttertoast.showToast(
+    //     msg: _MyHomePageState.count.toString(),
+    //     toastLength: Toast.LENGTH_SHORT,
+    //     gravity: ToastGravity.BOTTOM,
+    //     backgroundColor: Color.fromARGB(255, 0, 0, 0),
+    //     textColor: Colors.white,
+    //     fontSize: 16);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,10 +95,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: Icon(Icons.arrow_back_ios),
                   color: Colors.white,
                   onPressed: () {
+                    //              Fluttertoast.showToast(
+                    // msg: _MyHomePageState.items[0]['name'],
+                    // toastLength: Toast.LENGTH_SHORT,
+                    // gravity: ToastGravity.BOTTOM,
+                    // backgroundColor: Color.fromARGB(255, 0, 0, 0),
+                    // textColor: Colors.white,
+                    // fontSize: 16);
                     Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) =>  MyAppdiet(dat: widget.dat,)),
-                                         );
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MyAppdiet(
+                                dat: widget.dat,
+                              )),
+                    );
                   },
                 ),
                 Container(
@@ -108,64 +165,72 @@ class _MyHomePageState extends State<MyHomePage> {
                 Padding(
                     padding: EdgeInsets.only(top: 45.0),
                     child: Container(
-                        height: MediaQuery.of(context).size.height - 300.0,
-                        child: ListView(children: [
-                          _buildFoodItem('assets/plate1.png', 'Salmon bowl'),
-                          _buildFoodItem('assets/plate2.png', 'Spring bowl'),
-                          _buildFoodItem('assets/plate6.png', 'Avocado bowl'),
-                          _buildFoodItem('assets/plate5.png', 'Berry bowl'),
-                         
-                        ]))),
-                    Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Container(
-                      height: 65.0,
-                      width: 60.0,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Colors.grey,
-                            style: BorderStyle.solid,
-                            width: 1.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Center(
-                        child: Icon(Icons.search, color: Colors.black),
-                      ),
-                    ),
-                    Container(
-                      height: 65.0,
-                      width: 60.0,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Colors.grey,
-                            style: BorderStyle.solid,
-                            width: 1.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Center(
-                        child: Icon(Icons.shopping_basket, color: Colors.black),
-                      ),
-                    ),
-                    Container(
-                      height: 65.0,
-                      width: 120.0,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Colors.grey,
-                              style: BorderStyle.solid,
-                              width: 1.0),
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Color(0xFF1C1428)),
-                      child: Center(
-                          child: Text('Checkout',
-                              style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  color: Colors.white,
-                                  fontSize: 15.0))),
-                    )
-                  ],
-                )
+                      height:  200.0,
+                      child: ListView.builder(
+                        
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: _MyHomePageState.count,
+                          itemBuilder: (BuildContext context, int index) {
+                            return _buildFoodItem(
+                                'assets/plate2.png', _MyHomePageState.items[index]['name']);
+                          }),
+                      // ListView(children: [
+                      //   _buildFoodItem('assets/plate2.png', 'Salmon bowl'),
+                      //   _buildFoodItem('assets/plate2.png', 'Spring bowl'),
+                      //   _buildFoodItem('assets/plate2.png', 'Avocado bowl'),
+                      //   _buildFoodItem('assets/plate2.png', 'Berry bowl'),
+                      // ])
+                    )),
+                //     Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //   children: <Widget>[
+                //     Container(
+                //       height: 65.0,
+                //       width: 60.0,
+                //       decoration: BoxDecoration(
+                //         border: Border.all(
+                //             color: Colors.grey,
+                //             style: BorderStyle.solid,
+                //             width: 1.0),
+                //         borderRadius: BorderRadius.circular(10.0),
+                //       ),
+                //       child: Center(
+                //         child: Icon(Icons.search, color: Colors.black),
+                //       ),
+                //     ),
+                //     Container(
+                //       height: 65.0,
+                //       width: 60.0,
+                //       decoration: BoxDecoration(
+                //         border: Border.all(
+                //             color: Colors.grey,
+                //             style: BorderStyle.solid,
+                //             width: 1.0),
+                //         borderRadius: BorderRadius.circular(10.0),
+                //       ),
+                //       child: Center(
+                //         child: Icon(Icons.shopping_basket, color: Colors.black),
+                //       ),
+                //     ),
+                //     Container(
+                //       height: 65.0,
+                //       width: 120.0,
+                //       decoration: BoxDecoration(
+                //           border: Border.all(
+                //               color: Colors.grey,
+                //               style: BorderStyle.solid,
+                //               width: 1.0),
+                //           borderRadius: BorderRadius.circular(10.0),
+                //           color: Color(0xFF1C1428)),
+                //       child: Center(
+                //           child: Text('Checkout',
+                //               style: TextStyle(
+                //                   fontFamily: 'Montserrat',
+                //                   color: Colors.white,
+                //                   fontSize: 15.0))),
+                //     )
+                //   ],
+                // )
               ],
             ),
           )
@@ -178,51 +243,41 @@ class _MyHomePageState extends State<MyHomePage> {
     return Padding(
         padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
         child: InkWell(
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => DetailsPage(heroTag: imgPath, foodName: foodName)
-            ));
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Container(
-                child: Row(
-                  children: [
-                    Hero(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) =>
+                      DetailsPage(heroTag: imgPath, foodName: foodName)));
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                    child: Row(children: [
+                  Hero(
                       tag: imgPath,
                       child: Image(
-                        image: AssetImage(imgPath),
-                        fit: BoxFit.cover,
-                        height: 75.0,
-                        width: 75.0
-                      )
-                    ),
-                    SizedBox(width: 10.0),
-                    Column(
+                          image: AssetImage(imgPath),
+                          fit: BoxFit.cover,
+                          height: 75.0,
+                          width: 75.0)),
+                  SizedBox(width: 10.0),
+                  Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children:[
-                        Text(
-                          foodName,
-                          style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.bold
-                          )
-                        ),
-                       
-                      ]
-                    )
-                  ]
-                )
-              ),
-              IconButton(
-                icon: Icon(Icons.add),
-                color: Colors.black,
-                onPressed: () {}
-              )
-            ],
-          )
-        ));
+                      children: [
+                        Text(foodName,
+                            style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.bold)),
+                      ])
+                ])),
+                // IconButton(
+                //     icon: Icon(Icons.add),
+                //     color: Colors.black,
+                //     onPressed: () {
+
+                //     })
+              ],
+            )));
   }
 }

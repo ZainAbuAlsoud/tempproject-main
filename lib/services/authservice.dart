@@ -131,7 +131,7 @@ class AuthService {
     return await dio.get("http://192.168.1.76:4000/getinfo");
   }
 
-  update1(email, weight, height, name,age) async {
+  update1(email, weight, height, name, age) async {
     try {
       return await dio.post('http://192.168.1.76:4000/update1',
           data: {
@@ -139,7 +139,7 @@ class AuthService {
             "weight": weight,
             "height": height,
             "name": name,
-            "age" :age
+            "age": age
           },
           options: Options(contentType: Headers.formUrlEncodedContentType));
     } on DioError catch (e) {
@@ -169,5 +169,11 @@ class AuthService {
     }
   }
 
-  
+  KETO() async {
+    return await dio.get('http://192.168.1.76:4000/getketonum');
+  }
+
+  KETO1() async {
+    return await dio.get('http://192.168.1.76:4000/getKeto');
+  }
 }
