@@ -1,10 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:http/http.dart' as http;
+import '../models/ketoModel.dart';
 import '../services/authservice.dart';
 import 'd2.dart';
 import 'm1.dart';
 
+String nameKeto = "";
+String weightKeto = "";
+String fatsKeto = "";
+String proteinKeto = "";
+String caloriesKeto = "";
 //void main() => runApp(MyApp());
 
 class dietApp extends StatelessWidget {
@@ -36,48 +44,138 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static int count = 0;
-  // static late List<dynamic> streetsList;
-  static late List<dynamic> items;
-  set setCoutnnt(int c) {
-    count = c;
-  }
+//   static int count = 0;
+//   List valueMap = [];
+//   List<String> names = [];
+//   List<mongoKetoModel> ketoo = [];
+//   // static late List<dynamic> streetsList;
+//   //static late List<dynamic> items;
+//   set setCoutnnt(int c) {
+//     count = c;
+//   }
 
-  int get getCoutnt {
-    return count;
+//   int get getCoutnt {
+//     return count;
+//   }
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     AuthService().KETO().then((val) async {
+//       _MyHomePageState.count = val.data['msg'];
+
+//       await Future.delayed(const Duration(seconds: 5));
+//     });
+//     // items = List<dynamic>.generate(count, (i) => 'Item $i');
+//     AuthService().KETO1().then((value) async {
+//       List<dynamic> items = value.data['msg'];
+//       valueMap = jsonDecode(items.toString());
+//      // items = value.data['msg'];
+//       // for (var i = 0; i < count; i++) {
+//       //   names.add(items[i]['name']);
+//         // Fluttertoast.showToast(
+//         //     msg: valueMap.toString(),
+//         //     toastLength: Toast.LENGTH_SHORT,
+//         //     gravity: ToastGravity.BOTTOM,
+//         //     backgroundColor: Color.fromARGB(255, 0, 0, 0),
+//         //     textColor: Colors.white,
+//         //     fontSize: 16);
+//       // }
+//       await Future.delayed(const Duration(seconds: 3));
+//       // }
+//     });
+// int m=0;
+
+//     for (var data in valueMap) {
+
+//       ketoo.add(new mongoKetoModel(data['name'], data['weight'], data['fats'],
+//           data['protein'], data['calories']));
+//       // info.add(new signModel(data['email'], data['phone'],data['address'], data['firstname'],data['lastname']));
+//       nameKeto = data['name'];
+//       weightKeto = data['weight'];
+//       fatsKeto = data['fats'];
+//       proteinKeto =  data['protein'];
+//       caloriesKeto = data['calories'];
+// m= ketoo.length;
+//       setState(() {
+//         // info.add(new signModel(data['email'], data['phone'],data['address'], data['firstname'],data['lastname']));
+//       nameKeto = data['name'];
+//       weightKeto = data['weight'];
+//       fatsKeto = data['fats'];
+//       proteinKeto =  data['protein'];
+//       caloriesKeto = data['calories'];
+//       });
+//     }
+
+//     ketoo.forEach((element) {
+
+//       print(
+//           'email : ${element.name}   phone :${element.weight}  address :${element.fats}  firstname :${element.protein}  lastname :${element.calories} ');
+//     })
+//     ;
+//     // setState(() {});
+
+//     // items = List<dynamic>.generate(count, (i) => items[i]['msg']);
+//     // Fluttertoast.showToast(
+//     //     msg: _MyHomePageState.count.toString(),
+//     //     toastLength: Toast.LENGTH_SHORT,
+//     //     gravity: ToastGravity.BOTTOM,
+//     //     backgroundColor: Color.fromARGB(255, 0, 0, 0),
+//     //     textColor: Colors.white,
+//     //     fontSize: 16);
+//     // a = _MyHomePageState.items[0]['name'];
+  // }
+
+  List info = [];
+  late Map<String, dynamic> valueMap;
+
+  List<mongoKetoModel> myAllDaea = [];
+
+  int m = 0;
+  _initData() async {
+    var response = await http.get(
+      Uri.parse("http://192.168.1.76:4000/getKeto"),
+    );
+
+    String jsonsDataString = response.body.toString();
+    valueMap = json.decode(response.body);
+    List<dynamic> data = valueMap["msg"];
+    
+
+    for (var info in data) {
+      myAllDaea.add(mongoKetoModel(info["name"], info["weight"], info["fats"],
+          info["protein"], info["calories"]));
+      // info.add(new signModel(data['email'], data['phone'],data['address'], data['firstname'],data['lastname']));
+      nameKeto = info['name'];
+      weightKeto = info['weight'];
+      fatsKeto = info['fats'];
+      proteinKeto = info['protein'];
+      caloriesKeto = info['calories'];
+      m = myAllDaea.length;
+      // print(m);
+      setState(() {
+        // info.add(new signModel(data['email'], data['phone'],data['address'], data['firstname'],data['lastname']));
+        nameKeto = info['name'];
+        weightKeto = info['weight'];
+        fatsKeto = info['fats'];
+        proteinKeto = info['protein'];
+        caloriesKeto = info['calories'];
+      });
+    }
+    // myAllDaea.forEach((element) {
+    //   print(
+    //       'email : ${element.name}   phone :${element.weight}  address :${element.fats}  firstname :${element.protein}  lastname :${element.calories} ');
+    // });
+    // setState(() {});
   }
 
   @override
   void initState() {
-    super.initState();
-    AuthService().KETO().then((val) async {
-      _MyHomePageState.count = val.data['msg'];
-
-      await Future.delayed(const Duration(seconds: 5));
+    // super.initState();
+    // getData();
+    setState(() {
+      _initData();
     });
-    items = List<dynamic>.generate(count, (i) => 'Item $i');
-    AuthService().KETO1().then((value) async {
-      items = value.data['msg'];
-      // for (var i = 0; i < count; i++) {
-      // Fluttertoast.showToast(
-      //     msg: getCoutnt.toString(),
-      //     toastLength: Toast.LENGTH_SHORT,
-      //     gravity: ToastGravity.BOTTOM,
-      //     backgroundColor: Color.fromARGB(255, 0, 0, 0),
-      //     textColor: Colors.white,
-      //     fontSize: 16);
-      await Future.delayed(const Duration(seconds: 3));
-      // }
-    });
-
-    // items = List<dynamic>.generate(count, (i) => items[i]['msg']);
-    // Fluttertoast.showToast(
-    //     msg: _MyHomePageState.count.toString(),
-    //     toastLength: Toast.LENGTH_SHORT,
-    //     gravity: ToastGravity.BOTTOM,
-    //     backgroundColor: Color.fromARGB(255, 0, 0, 0),
-    //     textColor: Colors.white,
-    //     fontSize: 16);
   }
 
   @override
@@ -164,23 +262,28 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 Padding(
                     padding: EdgeInsets.only(top: 45.0),
-                    child: Container(
-                      height:  200.0,
-                      child: ListView.builder(
-                        
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: _MyHomePageState.count,
-                          itemBuilder: (BuildContext context, int index) {
-                            return _buildFoodItem(
-                                'assets/plate2.png', _MyHomePageState.items[index]['name']);
-                          }),
-                      // ListView(children: [
-                      //   _buildFoodItem('assets/plate2.png', 'Salmon bowl'),
-                      //   _buildFoodItem('assets/plate2.png', 'Spring bowl'),
-                      //   _buildFoodItem('assets/plate2.png', 'Avocado bowl'),
-                      //   _buildFoodItem('assets/plate2.png', 'Berry bowl'),
-                      // ])
-                    )),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            height: MediaQuery.of(context).size.height - 300.0,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: myAllDaea.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return GestureDetector(
+                
+                  child: _buildFoodItem('assets/plate2.png', myAllDaea[index].name)
+                );
+                                }),
+                            // ListView(children: [
+                            //   _buildFoodItem('assets/plate2.png', 'Salmon bowl'),
+                            //   _buildFoodItem('assets/plate2.png', 'Spring bowl'),
+                            //   _buildFoodItem('assets/plate2.png', 'Avocado bowl'),
+                            //   _buildFoodItem('assets/plate2.png', 'Berry bowl'),
+                            // ])
+                          ),
+                        ])),
                 //     Row(
                 //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 //   children: <Widget>[

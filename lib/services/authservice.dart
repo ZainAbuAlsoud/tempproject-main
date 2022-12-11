@@ -131,6 +131,11 @@ class AuthService {
     return await dio.get("http://192.168.1.76:4000/getinfo");
   }
 
+    getData1111(name) async {
+    dio.options.headers['name'] = 'Be $name';
+    return await dio.get("http://192.168.1.76:4000/getinfoketo");
+  }
+
   update1(email, weight, height, name, age) async {
     try {
       return await dio.post('http://192.168.1.76:4000/update1',
