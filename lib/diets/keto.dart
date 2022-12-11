@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import '../fordiet/d1.dart';
+import '../fordiet/m1.dart';
 import '../models/ketoModel.dart';
 import '../services/authservice.dart';
-import 'd2.dart';
-import 'm1.dart';
+
 
 String nameKeto = "";
 String weightKeto = "";
@@ -14,17 +15,17 @@ String fatsKeto = "";
 String proteinKeto = "";
 String caloriesKeto = "";
 
-class dietApp extends StatelessWidget {
+class dietAppKETO extends StatelessWidget {
   // This widget is the root of your application.
   final String dat;
-  const dietApp({
+  const dietAppKETO({
     super.key,
     required this.dat,
   });
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage(
+      home: MyHomePage1(
         dat: dat,
       ),
       debugShowCheckedModeBanner: false,
@@ -32,18 +33,18 @@ class dietApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage1 extends StatefulWidget {
   final String dat;
-  const MyHomePage({
+  const MyHomePage1({
     super.key,
     required this.dat,
   });
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePage1State createState() => _MyHomePage1State();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  List info = [];
+class _MyHomePage1State extends State<MyHomePage1> {
+  
   late Map<String, dynamic> valueMap;
 
   List<mongoKetoModel> myAllDaea = [];
