@@ -46,7 +46,7 @@ class _DetailsPageState extends State<DetailsPage> {
   String Vegetarian5 = "Tomato\nSpinach\nPeppers\nKale\nLettuce";
 
   String Vegan1 = "Berries\nCitrus Fruit\nMelons";
-  String Vegan2 = "Dark Leafy Greens\nTomatoes\nSweet Potatoes";
+  String Vegan2 = "Dark Leafy Greens\nTomatoes\nSweetj Potatoes";
   String Vegan3 = "Beans\nTofu\nLentils";
   String Vegan4 = "Almonds\nWalnuts\nFlax Seeds";
   String Vegan5 = "Extra Virgin Olive Oil\nAvocados\nOlives";
