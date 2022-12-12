@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
+import '../diets/carb.dart';
 import '../diets/keto.dart';
 import '../diets/paleo.dart';
 import '../diets/raw.dart';
@@ -1338,6 +1339,13 @@ class _DetailsPageState extends State<DetailsPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => dietAppRAW(dat: widget.dat)),
+                        );}
+
+                        if(widget.foodName == 'Low Carb'){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => dietAppCARB(dat: widget.dat)),
                         );}
                       },
                     ),
