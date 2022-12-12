@@ -3,28 +3,29 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import '../models/ketoModel.dart';
+import '../fordiet/d1.dart';
+import '../fordiet/d2.dart';
+import '../fordiet/m1.dart';
+import '../models/rawModel.dart';
 import '../services/authservice.dart';
-import 'd2.dart';
-import 'm1.dart';
 
-String nameKeto = "";
-String weightKeto = "";
-String fatsKeto = "";
-String proteinKeto = "";
-String caloriesKeto = "";
+String nameRaw = "";
+String weightRaw = "";
+String fatsRaw = "";
+String proteinRaw = "";
+String caloriesRaw = "";
 
-class dietApp extends StatelessWidget {
+class dietAppRAW extends StatelessWidget {
   // This widget is the root of your application.
   final String dat;
-  const dietApp({
+  const dietAppRAW({
     super.key,
     required this.dat,
   });
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage(
+      home: MyHomePage4(
         dat: dat,
       ),
       debugShowCheckedModeBanner: false,
@@ -32,47 +33,46 @@ class dietApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage4 extends StatefulWidget {
   final String dat;
-  const MyHomePage({
+  const MyHomePage4({
     super.key,
     required this.dat,
   });
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePage4State createState() => _MyHomePage4State();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  List info = [];
-  late Map<String, dynamic> valueMap;
+class _MyHomePage4State extends State<MyHomePage4> {
+  late Map<String, dynamic> valueMap3;
 
-  List<mongoKetoModel> myAllDaea = [];
+  List<mongoRawModel> myAllDaea3 = [];
 
-  int m = 0;
+  int m3 = 0;
   _initData() async {
-    var response = await http.get(
-      Uri.parse("http://192.168.1.76:4000/getKeto"),
+    var response3 = await http.get(
+      Uri.parse("http://192.168.1.76:4000/getRaw"),
     );
 
-    String jsonsDataString = response.body.toString();
-    valueMap = json.decode(response.body);
-    List<dynamic> data = valueMap["msg"];
+    String jsonsDataString3 = response3.body.toString();
+    valueMap3 = json.decode(response3.body);
+    List<dynamic> data3 = valueMap3["msg"];
 
-    for (var info in data) {
-      myAllDaea.add(mongoKetoModel(info["name"], info["weight"], info["fats"],
-          info["protein"], info["calories"]));
-      nameKeto = info['name'];
-      weightKeto = info['weight'];
-      fatsKeto = info['fats'];
-      proteinKeto = info['protein'];
-      caloriesKeto = info['calories'];
-      m = myAllDaea.length;
+    for (var info3 in data3) {
+      myAllDaea3.add(mongoRawModel(info3["name"], info3["weight"],
+          info3["fats"], info3["protein"], info3["calories"]));
+      nameRaw = info3['name'];
+      weightRaw = info3['weight'];
+      fatsRaw = info3['fats'];
+      proteinRaw = info3['protein'];
+      caloriesRaw = info3['calories'];
+      m3 = myAllDaea3.length;
       setState(() {
-        nameKeto = info['name'];
-        weightKeto = info['weight'];
-        fatsKeto = info['fats'];
-        proteinKeto = info['protein'];
-        caloriesKeto = info['calories'];
+        nameRaw = info3['name'];
+        weightRaw = info3['weight'];
+        fatsRaw = info3['fats'];
+        proteinRaw = info3['protein'];
+        caloriesRaw = info3['calories'];
       });
     }
   }
@@ -168,11 +168,11 @@ class _MyHomePageState extends State<MyHomePage> {
                             height: MediaQuery.of(context).size.height - 300.0,
                             child: ListView.builder(
                                 shrinkWrap: true,
-                                itemCount: myAllDaea.length,
+                                itemCount: myAllDaea3.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   return GestureDetector(
                                       child: _buildFoodItem('assets/plate2.png',
-                                          myAllDaea[index].name));
+                                          myAllDaea3[index].name));
                                 }),
                           ),
                         ])),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import '../fordiet/d1.dart';
+import '../fordiet/d2.dart';
 import '../fordiet/m1.dart';
 import '../models/paleoModel.dart';
 import '../services/authservice.dart';
@@ -190,7 +191,7 @@ class _MyHomePage3State extends State<MyHomePage3> {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) =>
-                      DetailsPage(heroTag: imgPath, foodName: foodName)));
+                      DetailsPage1(heroTag: imgPath, foodName: foodName)));
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
