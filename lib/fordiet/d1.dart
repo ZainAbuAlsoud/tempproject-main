@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
 import '../diets/keto.dart';
+import '../diets/paleo.dart';
 import '../diets/vegetarian.dart';
 import '../services/authservice.dart';
 import 'm2.dart';
@@ -1322,6 +1323,13 @@ class _DetailsPageState extends State<DetailsPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => dietAppVEGETARIAN(dat: widget.dat)),
+                        );}
+
+                          if(widget.foodName == 'Paleo'){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => dietAppPALEO(dat: widget.dat)),
                         );}
                       },
                     ),
