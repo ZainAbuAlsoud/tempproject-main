@@ -7,6 +7,7 @@ import '../diets/carb.dart';
 import '../diets/keto.dart';
 import '../diets/paleo.dart';
 import '../diets/raw.dart';
+import '../diets/sugar.dart';
 import '../diets/vegetarian.dart';
 import '../services/authservice.dart';
 import 'm2.dart';
@@ -1346,6 +1347,13 @@ class _DetailsPageState extends State<DetailsPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => dietAppCARB(dat: widget.dat)),
+                        );}
+
+                        if(widget.foodName == 'No Sugar'){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => dietAppSUGAR(dat: widget.dat)),
                         );}
                       },
                     ),

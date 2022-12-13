@@ -51,7 +51,7 @@ class _MyHomePage6State extends State<MyHomePage6> {
   int m5 = 0;
   _initData() async {
     var response5 = await http.get(
-      Uri.parse("http://192.168.1.76:4000/addNewSugar"),
+      Uri.parse("http://192.168.1.76:4000/getSugar"),
     );
 
     String jsonsDataString5 = response5.body.toString();
