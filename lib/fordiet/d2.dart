@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class DetailsPage1 extends StatefulWidget {
   final heroTag;
   final foodName;
+  final cal;
+  final pro;
+  final fat;
   //final foodPrice;
- 
 
-  DetailsPage1({this.heroTag, this.foodName});
+  DetailsPage1({this.heroTag, this.foodName,this.cal,this.pro,this.fat});
 
   @override
   _DetailsPage1State createState() => _DetailsPage1State();
@@ -14,7 +16,7 @@ class DetailsPage1 extends StatefulWidget {
 
 class _DetailsPage1State extends State<DetailsPage1> {
   var selectedCard = 'WEIGHT';
-    num count=0 ;
+  num count = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +79,7 @@ class _DetailsPage1State extends State<DetailsPage1> {
                 left: 25.0,
                 right: 25.0,
                 child: Column(
-                 // crossAxisAlignment: CrossAxisAlignment.start,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(widget.foodName,
                         style: TextStyle(
@@ -86,26 +88,27 @@ class _DetailsPage1State extends State<DetailsPage1> {
                             fontWeight: FontWeight.bold)),
                     SizedBox(height: 20.0),
                     Row(
-                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        SizedBox(width: 95,),
+                        SizedBox(
+                          width: 95,
+                        ),
                         Container(
-                        
                           width: 125.0,
                           height: 40.0,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(17.0),
                               color: Color.fromARGB(255, 112, 80, 114)),
-                              
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               InkWell(
                                 onTap: () {
                                   setState(() {
-                                    if (count <1){count=0;}
-                                    else
-                                    count--;
+                                    if (count < 1) {
+                                      count = 0;
+                                    } else
+                                      count--;
                                   });
                                 },
                                 child: Container(
@@ -113,7 +116,7 @@ class _DetailsPage1State extends State<DetailsPage1> {
                                   width: 25.0,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(7.0),
-                                      color:Color.fromARGB(255, 112, 80, 114)),
+                                      color: Color.fromARGB(255, 112, 80, 114)),
                                   child: Center(
                                     child: Icon(
                                       Icons.remove,
@@ -156,36 +159,34 @@ class _DetailsPage1State extends State<DetailsPage1> {
                     ),
                     SizedBox(height: 20.0),
                     Container(
-                      height: 150.0,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: <Widget>[
-                          _buildInfoCard('WEIGHT', '300', 'G'),
-                          SizedBox(width: 10.0),
-                            _buildInfoCard('CALORIES', '267', 'CAL'),
+                        height: 150.0,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: <Widget>[
+                            _buildInfoCard('WEIGHT', '100', 'G'),
                             SizedBox(width: 10.0),
-                            _buildInfoCard('VITAMINS', 'A, B6', 'VIT'),
+                            _buildInfoCard('CALORIES', widget.cal, 'CAL'),
                             SizedBox(width: 10.0),
-                            _buildInfoCard('AVAIL', 'NO', 'AV')
-                        ],
-                      )
-                    ),
+                            _buildInfoCard('FATS', widget.fat, 'G'),
+                            SizedBox(width: 10.0),
+                            _buildInfoCard('PROTEIN', widget.pro, 'G')
+                          ],
+                        )),
                     SizedBox(height: 20.0),
-                      Padding(
-                        padding: EdgeInsets.only(bottom:5.0),
-                        child: Container(
-                          
-                          height: 50.0,
-                          width: 400,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: Color.fromARGB(255, 112, 80, 114),
-                            ),
-                             onPressed: () {
-                            
-                          }, child:  const Text('Add'),),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 5.0),
+                      child: Container(
+                        height: 50.0,
+                        width: 400,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Color.fromARGB(255, 112, 80, 114),
+                          ),
+                          onPressed: () {},
+                          child: const Text('Add'),
                         ),
-                      )
+                      ),
+                    )
                   ],
                 ))
           ])
@@ -194,68 +195,66 @@ class _DetailsPage1State extends State<DetailsPage1> {
 
   Widget _buildInfoCard(String cardTitle, String info, String unit) {
     return InkWell(
-      onTap: () {
-        selectCard(cardTitle);
-      },
-      child: AnimatedContainer(
-        duration: Duration(milliseconds: 500),
-        curve: Curves.easeIn,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: cardTitle == selectedCard ? Color.fromARGB(255, 112, 80, 114) : Colors.white,
-          border: Border.all(
-            color: cardTitle == selectedCard ? 
-            Colors.transparent :
-            Colors.grey.withOpacity(0.3),
-            style: BorderStyle.solid,
-          width: 0.75
-          ),
-          
-        ),
-        height: 100.0,
-        width: 100.0,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0, left: 15.0),
-              child: Text(cardTitle,
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 12.0,
-                    color:
-                        cardTitle == selectedCard ? Colors.white : Colors.grey.withOpacity(0.7),
-                  )),
+        onTap: () {
+          selectCard(cardTitle);
+        },
+        child: AnimatedContainer(
+            duration: Duration(milliseconds: 500),
+            curve: Curves.easeIn,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: cardTitle == selectedCard
+                  ? Color.fromARGB(255, 112, 80, 114)
+                  : Colors.white,
+              border: Border.all(
+                  color: cardTitle == selectedCard
+                      ? Colors.transparent
+                      : Colors.grey.withOpacity(0.3),
+                  style: BorderStyle.solid,
+                  width: 0.75),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0, bottom: 8.0),
-              child: Column(
+            height: 100.0,
+            width: 100.0,
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(info,
-                      style: TextStyle(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0, left: 15.0),
+                    child: Text(cardTitle,
+                        style: TextStyle(
                           fontFamily: 'Montserrat',
-                          fontSize: 14.0,
+                          fontSize: 12.0,
                           color: cardTitle == selectedCard
                               ? Colors.white
-                              : Colors.black,
-                          fontWeight: FontWeight.bold)),
-                  Text(unit,
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontSize: 12.0,
-                        color: cardTitle == selectedCard
-                            ? Colors.white
-                            : Colors.black,
-                      ))
-                ],
-              ),
-            )
-          ]
-        )
-      )
-    );
+                              : Colors.grey.withOpacity(0.7),
+                        )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15.0, bottom: 8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(info,
+                            style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontSize: 14.0,
+                                color: cardTitle == selectedCard
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontWeight: FontWeight.bold)),
+                        Text(unit,
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontSize: 12.0,
+                              color: cardTitle == selectedCard
+                                  ? Colors.white
+                                  : Colors.black,
+                            ))
+                      ],
+                    ),
+                  )
+                ])));
   }
 
   selectCard(cardTitle) {

@@ -171,7 +171,7 @@ class _MyHomePage5State extends State<MyHomePage5> {
                                 itemBuilder: (BuildContext context, int index) {
                                   return GestureDetector(
                                       child: _buildFoodItem('assets/plate2.png',
-                                          myAllDaea4[index].name));
+                                          myAllDaea4[index].name,myAllDaea4[index].calories,myAllDaea4[index].protein,myAllDaea4[index].fats));
                                 }),
                           ),
                         ])),
@@ -183,14 +183,14 @@ class _MyHomePage5State extends State<MyHomePage5> {
     );
   }
 
-  Widget _buildFoodItem(String imgPath, String foodName) {
+  Widget _buildFoodItem(String imgPath, String foodName,String cal,String pro,String fat) {
     return Padding(
         padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
         child: InkWell(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) =>
-                      DetailsPage1(heroTag: imgPath, foodName: foodName)));
+                      DetailsPage1(heroTag: imgPath, foodName: foodName,cal: cal,pro: pro,fat: fat)));
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
