@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../diets/carb.dart';
 import '../diets/keto.dart';
@@ -1313,48 +1314,86 @@ class _DetailsPageState extends State<DetailsPage> {
                       ),
                       backgroundColor: Color(0xFF7A9BEE),
                       onPressed: () {
-                     
-                       if(widget.foodName == 'Keto'){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => dietAppKETO(dat: widget.dat)),
-                        );}
+                        AuthService().diet('1').then((val) {
+                         
+                         
+                            if (widget.foodName == 'Keto' &&(val.data['msg']=='1' || val.data['msg']=='2')) {
+                              AuthService().updateDIET(
+                                  '1', true, false, false, false, false, false);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        dietAppKETO(dat: widget.dat)),
+                              );
+                            }
 
-                          if(widget.foodName == 'Vegetarian'){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => dietAppVEGETARIAN(dat: widget.dat)),
-                        );}
+                            else if (widget.foodName == 'Vegetarian' &&(val.data['msg']=='1' || val.data['msg']=='4')) {
+                              AuthService().updateDIET(
+                                  '1', false, false, true, false, false, false);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        dietAppVEGETARIAN(dat: widget.dat)),
+                              );
+                            }
 
-                          if(widget.foodName == 'Paleo'){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => dietAppPALEO(dat: widget.dat)),
-                        );}
+                            else if (widget.foodName == 'Paleo' &&(val.data['msg']=='1' || val.data['msg']=='3')) {
+                              AuthService().updateDIET(
+                                  '1', false, true, false, false, false, false);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        dietAppPALEO(dat: widget.dat)),
+                              );
+                            }
 
-                        if(widget.foodName == 'Raw'){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => dietAppRAW(dat: widget.dat)),
-                        );}
+                            else if (widget.foodName == 'Raw' &&(val.data['msg']=='1' || val.data['msg']=='5')) {
+                              AuthService().updateDIET(
+                                  '1', false, false, false, true, false, false);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        dietAppRAW(dat: widget.dat)),
+                              );
+                            }
 
-                        if(widget.foodName == 'Low Carb'){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => dietAppCARB(dat: widget.dat)),
-                        );}
+                            else if (widget.foodName == 'Low Carb' &&(val.data['msg']=='1' || val.data['msg']=='6')) {
+                              AuthService().updateDIET(
+                                  '1', false, false, false, false, true, false);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        dietAppCARB(dat: widget.dat)),
+                              );
+                            }
 
-                        if(widget.foodName == 'No Sugar'){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => dietAppSUGAR(dat: widget.dat)),
-                        );}
+                            else if (widget.foodName == 'No Sugar' &&(val.data['msg']=='1' || val.data['msg']=='7')) {
+                              AuthService().updateDIET(
+                                  '1', false, false, false, false, false, true);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        dietAppSUGAR(dat: widget.dat)),
+                              );
+                            }
+                          else {
+                            Fluttertoast.showToast(
+                                msg: 'You can' +
+                                    "'" +
+                                    't choose this type until 30 days',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                backgroundColor: Color.fromARGB(255, 0, 0, 0),
+                                textColor: Colors.white,
+                                fontSize: 16);
+                          }
+                        });
                       },
                     ),
                   ],
@@ -1362,7 +1401,6 @@ class _DetailsPageState extends State<DetailsPage> {
           ])
         ]));
   }
-
 
   selectCard(cardTitle) {
     setState(() {

@@ -175,4 +175,24 @@ class AuthService {
   KETO1() async {
     return await dio.get('http://192.168.1.76:4000/getKeto');
   }
+
+    diet(num) async {
+    return await dio.get('http://192.168.1.76:4000/getDiet');
+  }
+
+    updateDIET(num, keto,paleo,vegetarian,raw,carb,sugar) async {
+    try {
+      return await dio.post('http://192.168.1.76:4000/updateDiet',
+          data: {"num": num, "keto": keto,"paleo":paleo,"vegetarian":vegetarian,"raw":raw,"carb":carb,"sugar":sugar},
+          options: Options(contentType: Headers.formUrlEncodedContentType));
+    } on DioError catch (e) {
+      Fluttertoast.showToast(
+          msg: e.response!.data['msg'],
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Color.fromARGB(255, 0, 0, 0),
+          textColor: Colors.white,
+          fontSize: 16);
+    }
+  }
 }
