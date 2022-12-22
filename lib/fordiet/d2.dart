@@ -1,4 +1,9 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import '../services/authservice.dart';
 
 class DetailsPage1 extends StatefulWidget {
   final heroTag;
@@ -6,9 +11,10 @@ class DetailsPage1 extends StatefulWidget {
   final cal;
   final pro;
   final fat;
+  
   //final foodPrice;
 
-  DetailsPage1({this.heroTag, this.foodName,this.cal,this.pro,this.fat});
+  DetailsPage1({this.heroTag, this.foodName, this.cal, this.pro, this.fat});
 
   @override
   _DetailsPage1State createState() => _DetailsPage1State();
@@ -182,7 +188,19 @@ class _DetailsPage1State extends State<DetailsPage1> {
                           style: ElevatedButton.styleFrom(
                             primary: Color.fromARGB(255, 112, 80, 114),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                             AuthService().food(widget.foodName, (count*100).toString(),(double.parse(widget.fat)*count).toString() , (double.parse(widget.pro)*count).toString(), (double.parse(widget.cal)*count).toString()).then((val) {
+                             if(val.data['success']){
+                              Fluttertoast.showToast(
+                                msg: 'Done',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                backgroundColor: Color.fromARGB(255, 0, 0, 0),
+                                textColor: Colors.white,
+                                fontSize: 16);
+                             }
+                            });
+                          },
                           child: const Text('Add'),
                         ),
                       ),

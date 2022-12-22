@@ -195,4 +195,39 @@ class AuthService {
           fontSize: 16);
     }
   }
+
+  
+  food(name, weight, fats, protein, calories) async {
+    try {
+      return await dio.post('http://192.168.1.76:4000/addNewFood',
+          data: {
+            "name": name,
+            "weight": weight,
+            "fats": fats,
+            "protein": protein,
+            "calories": calories
+          },
+          options: Options(contentType: Headers.formUrlEncodedContentType));
+    } on DioError catch (e) {
+      Fluttertoast.showToast(
+          msg: e.response!.data['msg'],
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Color.fromARGB(255, 0, 0, 0),
+          textColor: Colors.white,
+          fontSize: 16);
+    }
+  }
+
+    getCal() async {
+    return await dio.get('http://192.168.1.76:4000/getCalories');
+  }
+
+      getPro() async {
+    return await dio.get('http://192.168.1.76:4000/getProtein');
+  }
+
+        getFat() async {
+    return await dio.get('http://192.168.1.76:4000/getFats');
+  }
 }
