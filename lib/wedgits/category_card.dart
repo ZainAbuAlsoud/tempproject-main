@@ -40,7 +40,7 @@ class CategoryCard extends StatelessWidget {
         child: Material(
           color: Colors.transparent,
           child: InkWell(
-            onTap: () {
+            onTap: () async {
               // press;
               if (title == "Start Your sessions") {
                 Navigator.push(context,
@@ -48,8 +48,10 @@ class CategoryCard extends StatelessWidget {
               }
 
               if (title == "Vital Signs") {
+                
                 Navigator.push(context,
                     MaterialPageRoute(builder: ((context) => MyAppzena(dat:dat))));
+                    
               }
 
               if (title == "Diet Types") {

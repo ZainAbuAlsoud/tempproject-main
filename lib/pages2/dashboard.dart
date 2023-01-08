@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../services/authservice.dart';
-
-String cal = '';
-String pro = '';
-String fat = '';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -14,18 +11,136 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  static String cal = '0';
+  static String pro = '0';
+  static String fat = '0';
+  static String cal1 = '0';
+  static String pro1 = '0';
+  static String fat1 = '0';
+  static String TotalCal = '0';
+  static String TotalPro = '0';
+  static String TotalFat = '0';
   @override
   void initState() {
-    AuthService().getCal().then((val) {
-      cal = val.data['msg'];
-    });
-    AuthService().getFat().then((val) {
-      fat = val.data['msg'];
-    });
-    AuthService().getPro().then((val) {
-      pro = val.data['msg'];
-    });
     super.initState();
+    setState(() {
+      AuthService().getCal().then((val) {
+        cal = val.data['msg'];
+        cal1 = val.data['msg']; //top
+      });
+      AuthService().getFat().then((val) {
+        fat = val.data['msg'];
+        fat1 = val.data['msg'];
+      });
+      AuthService().getPro().then((val) {
+        pro = val.data['msg'];
+        pro1 = val.data['msg'];
+      });
+
+      AuthService().diet('1').then((val) {
+        if (val.data['msg'] == '2') {
+          TotalCal = '450';
+          TotalFat = '1050';
+          TotalPro = '50';
+        } else if (val.data['msg'] == '4') {
+          TotalCal = '2400';
+          TotalFat = '100';
+          TotalPro = '220';
+        } else if (val.data['msg'] == '3') {
+          TotalCal = '1200';
+          TotalFat = '13';
+          TotalPro = '140';
+        } else if (val.data['msg'] == '5') {
+          TotalCal = '1600';
+          TotalFat = '400';
+          TotalPro = '60';
+        } else if (val.data['msg'] == '6') {
+          TotalCal = '1050';
+          TotalFat = '450';
+          TotalPro = '375';
+        }
+        // else if (val.data['msg'] == '7') {
+        //   TotalCal = '';
+        //   TotalFat = '';
+        //   TotalPro = '';
+        // }
+      });
+      if (double.parse(cal) > double.parse(TotalCal) &&
+          double.parse(fat) > double.parse(TotalFat) &&
+          double.parse(pro) > double.parse(TotalPro)) {
+        cal = TotalCal;
+        pro = TotalPro;
+        fat = TotalFat;
+        Fluttertoast.showToast(
+            msg:
+                'You have exceeded your calories & protein & fat intake limit!',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Color.fromARGB(255, 0, 0, 0),
+            textColor: Colors.white,
+            fontSize: 16);
+      } else if (double.parse(cal) > double.parse(TotalCal) &&
+          double.parse(fat) > double.parse(TotalFat)) {
+        cal = TotalCal;
+        fat = TotalFat;
+        Fluttertoast.showToast(
+            msg: 'You have exceeded your calories & fat intake limit!',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Color.fromARGB(255, 0, 0, 0),
+            textColor: Colors.white,
+            fontSize: 16);
+      } else if (double.parse(cal) > double.parse(TotalCal) &&
+          double.parse(pro) > double.parse(TotalPro)) {
+        cal = TotalCal;
+        pro = TotalPro;
+        Fluttertoast.showToast(
+            msg: 'You have exceeded your calories & protein intake limit!',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Color.fromARGB(255, 0, 0, 0),
+            textColor: Colors.white,
+            fontSize: 16);
+      } else if (double.parse(pro) > double.parse(TotalPro) &&
+          double.parse(fat) > double.parse(TotalFat)) {
+        pro = TotalPro;
+        fat = TotalFat;
+        Fluttertoast.showToast(
+            msg: 'You have exceeded your protein & fat intake limit!',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Color.fromARGB(255, 0, 0, 0),
+            textColor: Colors.white,
+            fontSize: 16);
+      } else if (double.parse(cal) > double.parse(TotalCal)) {
+        cal = TotalCal;
+        Fluttertoast.showToast(
+            msg: 'You have exceeded your calories intake limit!',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Color.fromARGB(255, 0, 0, 0),
+            textColor: Colors.white,
+            fontSize: 16);
+      } else if (double.parse(pro) > double.parse(TotalPro)) {
+        pro = TotalPro;
+        Fluttertoast.showToast(
+            msg: 'You have exceeded your protein intake limit!',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Color.fromARGB(255, 0, 0, 0),
+            textColor: Colors.white,
+            fontSize: 16);
+      } else if (double.parse(fat) > double.parse(TotalFat)) {
+        fat = TotalFat;
+        Fluttertoast.showToast(
+            msg: 'You have exceeded your calories intake limit!',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Color.fromARGB(255, 0, 0, 0),
+            textColor: Colors.white,
+            fontSize: 16);
+      }
+    });
   }
 
   @override
@@ -226,7 +341,7 @@ class _DashboardState extends State<Dashboard> {
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: cal,
+                                    text: cal1,
                                     style: TextStyle(
                                       fontSize: 20,
                                       color: Theme.of(context).accentColor,
@@ -262,7 +377,7 @@ class _DashboardState extends State<Dashboard> {
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: pro,
+                                    text: pro1,
                                     style: TextStyle(
                                       fontSize: 20,
                                       color: Theme.of(context).accentColor,
@@ -298,7 +413,7 @@ class _DashboardState extends State<Dashboard> {
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: fat,
+                                    text: fat1,
                                     style: TextStyle(
                                       fontSize: 20,
                                       color: Theme.of(context).accentColor,
@@ -371,21 +486,21 @@ class _DashboardState extends State<Dashboard> {
                       StatCard(
                         title: 'Calories',
                         achieved: double.parse(cal),
-                        total: 2000,
+                        total: double.parse(TotalCal),
                         color: Colors.orange,
                         image: Image.asset('assets/img/bolt.png', width: 20),
                       ),
                       StatCard(
                         title: 'Protien',
                         achieved: double.parse(pro),
-                        total: 300,
+                        total: double.parse(TotalPro),
                         color: Theme.of(context).primaryColor,
                         image: Image.asset('assets/img/fish.png', width: 20),
                       ),
                       StatCard(
                         title: 'Fats',
                         achieved: double.parse(fat),
-                        total: 200,
+                        total: double.parse(TotalFat),
                         color: Colors.green,
                         image: Image.asset('assets/img/sausage.png', width: 20),
                       ),
