@@ -23,7 +23,7 @@ class MyAppzena extends StatelessWidget {
         accentColor: Color(0XFF233C63),
         fontFamily: 'Poppins',
       ),
-      home: Dashboard(),
+      home: Dashboard(dat:dat),
     );
   }
 }

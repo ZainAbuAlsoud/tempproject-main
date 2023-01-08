@@ -13,6 +13,8 @@ import '../diets/vegetarian.dart';
 import '../services/authservice.dart';
 import 'm2.dart';
 
+int count = 0;
+
 class DetailsPage extends StatefulWidget {
   final heroTag;
   final foodName;
@@ -1314,75 +1316,76 @@ class _DetailsPageState extends State<DetailsPage> {
                       ),
                       backgroundColor: Color(0xFF7A9BEE),
                       onPressed: () {
+                        
                         AuthService().diet().then((val) {
-                         
-                         
-                            if (widget.foodName == 'Keto' &&(val.data['msg']=='1' || val.data['msg']=='2')) {
-                              AuthService().updateDIET(
-                                  '1', true, false, false, false, false, false);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        dietAppKETO(dat: widget.dat)),
-                              );
-                            }
-
-                            else if (widget.foodName == 'Vegetarian' &&(val.data['msg']=='1' || val.data['msg']=='4')) {
-                              AuthService().updateDIET(
-                                  '1', false, false, true, false, false, false);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        dietAppVEGETARIAN(dat: widget.dat)),
-                              );
-                            }
-
-                            else if (widget.foodName == 'Paleo' &&(val.data['msg']=='1' || val.data['msg']=='3')) {
-                              AuthService().updateDIET(
-                                  '1', false, true, false, false, false, false);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        dietAppPALEO(dat: widget.dat)),
-                              );
-                            }
-
-                            else if (widget.foodName == 'Raw' &&(val.data['msg']=='1' || val.data['msg']=='5')) {
-                              AuthService().updateDIET(
-                                  '1', false, false, false, true, false, false);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        dietAppRAW(dat: widget.dat)),
-                              );
-                            }
-
-                            else if (widget.foodName == 'Low Carb' &&(val.data['msg']=='1' || val.data['msg']=='6')) {
-                              AuthService().updateDIET(
-                                  '1', false, false, false, false, true, false);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        dietAppCARB(dat: widget.dat)),
-                              );
-                            }
-
-                            else if (widget.foodName == 'No Sugar' &&(val.data['msg']=='1' || val.data['msg']=='7')) {
-                              AuthService().updateDIET(
-                                  '1', false, false, false, false, false, true);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        dietAppSUGAR(dat: widget.dat)),
-                              );
-                            }
-                          else {
+                          if (widget.foodName == 'Keto' &&
+                              (val.data['msg'] == '1' ||
+                                  val.data['msg'] == '2')) {
+                                    
+                            AuthService().updateDIET(
+                                '1', true, false, false, false, false, false);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      dietAppKETO(dat: widget.dat)),
+                            );
+                          } else if (widget.foodName == 'Vegetarian' &&
+                              (val.data['msg'] == '1' ||
+                                  val.data['msg'] == '4')) {
+                            AuthService().updateDIET(
+                                '1', false, false, true, false, false, false);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      dietAppVEGETARIAN(dat: widget.dat)),
+                            );
+                          } else if (widget.foodName == 'Paleo' &&
+                              (val.data['msg'] == '1' ||
+                                  val.data['msg'] == '3')) {
+                            AuthService().updateDIET(
+                                '1', false, true, false, false, false, false);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      dietAppPALEO(dat: widget.dat)),
+                            );
+                          } else if (widget.foodName == 'Raw' &&
+                              (val.data['msg'] == '1' ||
+                                  val.data['msg'] == '5')) {
+                            AuthService().updateDIET(
+                                '1', false, false, false, true, false, false);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      dietAppRAW(dat: widget.dat)),
+                            );
+                          } else if (widget.foodName == 'Low Carb' &&
+                              (val.data['msg'] == '1' ||
+                                  val.data['msg'] == '6')) {
+                            AuthService().updateDIET(
+                                '1', false, false, false, false, true, false);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      dietAppCARB(dat: widget.dat)),
+                            );
+                          } else if (widget.foodName == 'No Sugar' &&
+                              (val.data['msg'] == '1' ||
+                                  val.data['msg'] == '7')) {
+                            AuthService().updateDIET(
+                                '1', false, false, false, false, false, true);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      dietAppSUGAR(dat: widget.dat)),
+                            );
+                          } else {
                             Fluttertoast.showToast(
                                 msg: 'You can' +
                                     "'" +

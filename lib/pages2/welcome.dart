@@ -60,7 +60,7 @@ class _WelcomeState extends State<Welcome> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Dashboard(),
+                        builder: (context) => Dashboard(dat: '',),
                       ),
                     );
                   },

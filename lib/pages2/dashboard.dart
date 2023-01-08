@@ -20,6 +20,11 @@ String TotalPro = '0';
 String TotalFat = '0';
 
 class Dashboard extends StatefulWidget {
+  final String dat;
+  const Dashboard({
+    super.key,
+    required this.dat,
+  });
   @override
   _DashboardState createState() => _DashboardState();
 }
@@ -29,14 +34,17 @@ class _DashboardState extends State<Dashboard> {
   late Map<String, dynamic> valueMapP;
   late Map<String, dynamic> valueMapF;
   late Map<String, dynamic> valueMapBB;
-
+  Map<String, String> t={'email':'j'};
   List<mongoDashModel> myAllDaeaD = [];
 
   int mD = 0;
 
   _initData() async {
+    
     var responseC = await http.get(
+      
       Uri.parse("http://192.168.1.76:4000/getCalories"),
+      headers: t,
     );
 
     var responseP = await http.get(

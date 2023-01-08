@@ -191,7 +191,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) =>
-                      DetailsPage1(heroTag: imgPath, foodName: foodName)));
+                      DetailsPage1(heroTag: imgPath, foodName: foodName,dat:widget.dat)));
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

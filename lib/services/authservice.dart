@@ -197,10 +197,11 @@ class AuthService {
   }
 
   
-  food(name, weight, fats, protein, calories) async {
+  food(name, weight, fats, protein, calories,email) async {
     try {
       return await dio.post('http://192.168.1.76:4000/addNewFood',
           data: {
+            "email":email,
             "name": name,
             "weight": weight,
             "fats": fats,
