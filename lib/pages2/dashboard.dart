@@ -1,9 +1,23 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:http/http.dart' as http;
 
+import '../models/dashModel.dart';
 import '../services/authservice.dart';
+
+String cal = '0';
+String pro = '0';
+String fat = '0';
+String cal1 = '0';
+String pro1 = '0';
+String fat1 = '0';
+String TotalCal = '0';
+String TotalPro = '0';
+String TotalFat = '0';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -11,61 +25,92 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  static String cal = '0';
-  static String pro = '0';
-  static String fat = '0';
-  static String cal1 = '0';
-  static String pro1 = '0';
-  static String fat1 = '0';
-  static String TotalCal = '0';
-  static String TotalPro = '0';
-  static String TotalFat = '0';
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      AuthService().getCal().then((val) {
-        cal = val.data['msg'];
-        cal1 = val.data['msg']; //top
-      });
-      AuthService().getFat().then((val) {
-        fat = val.data['msg'];
-        fat1 = val.data['msg'];
-      });
-      AuthService().getPro().then((val) {
-        pro = val.data['msg'];
-        pro1 = val.data['msg'];
-      });
+  late Map<String, dynamic> valueMapC;
+  late Map<String, dynamic> valueMapP;
+  late Map<String, dynamic> valueMapF;
+  late Map<String, dynamic> valueMapBB;
 
-      AuthService().diet('1').then((val) {
-        if (val.data['msg'] == '2') {
-          TotalCal = '450';
-          TotalFat = '1050';
-          TotalPro = '50';
-        } else if (val.data['msg'] == '4') {
-          TotalCal = '2400';
-          TotalFat = '100';
-          TotalPro = '220';
-        } else if (val.data['msg'] == '3') {
-          TotalCal = '1200';
-          TotalFat = '13';
-          TotalPro = '140';
-        } else if (val.data['msg'] == '5') {
-          TotalCal = '1600';
-          TotalFat = '400';
-          TotalPro = '60';
-        } else if (val.data['msg'] == '6') {
-          TotalCal = '1050';
-          TotalFat = '450';
-          TotalPro = '375';
-        }
-        // else if (val.data['msg'] == '7') {
-        //   TotalCal = '';
-        //   TotalFat = '';
-        //   TotalPro = '';
-        // }
-      });
-      if (double.parse(cal) > double.parse(TotalCal) &&
+  List<mongoDashModel> myAllDaeaD = [];
+
+  int mD = 0;
+
+  _initData() async {
+    var responseC = await http.get(
+      Uri.parse("http://192.168.1.76:4000/getCalories"),
+    );
+
+    var responseP = await http.get(
+      Uri.parse("http://192.168.1.76:4000/getProtein"),
+    );
+
+    var responseF = await http.get(
+      Uri.parse("http://192.168.1.76:4000/getFats"),
+    );
+
+    var responseB = await http.get(
+      Uri.parse("http://192.168.1.76:4000/getDiet"),
+    );
+
+    String jsonsDataStringC = responseC.body.toString();
+    valueMapC = json.decode(responseC.body);
+    String dataC = valueMapC["msg"];
+
+    String jsonsDataStringP = responseP.body.toString();
+    valueMapP = json.decode(responseP.body);
+    String dataP = valueMapP["msg"];
+
+    String jsonsDataStringF = responseF.body.toString();
+    valueMapF = json.decode(responseF.body);
+    String dataF = valueMapF["msg"];
+
+    valueMapBB = json.decode(responseB.body);
+    String dataB = valueMapBB["msg"];
+
+    if (dataB == '2') {
+      myAllDaeaD.add(mongoDashModel(dataC, dataP, dataF, '450', '1050', '50'));
+    }else if(dataB == '4'){
+      myAllDaeaD.add(mongoDashModel(dataC, dataP, dataF, '2400', '100', '220'));
+    }else if(dataB == '3'){
+      myAllDaeaD.add(mongoDashModel(dataC, dataP, dataF, '1200', '13', '140'));
+    }else if(dataB == '5'){
+      myAllDaeaD.add(mongoDashModel(dataC, dataP, dataF, '1600', '400', '60'));
+    }else if(dataB == '6'){
+      myAllDaeaD.add(mongoDashModel(dataC, dataP, dataF, '150', '450', '375'));
+    }
+
+
+
+    setState(() {
+      cal = dataC;
+      pro = dataP;
+      fat = dataF;
+      cal1 = dataC;
+      pro1 = dataP;
+      fat1 = dataF;
+      if (dataB == '2') {
+        TotalCal = '450';
+        TotalFat = '1050';
+        TotalPro = '50';
+      
+    }else if(dataB == '4'){
+        TotalCal = '2400';
+        TotalFat = '100';
+        TotalPro = '220';
+    }else if(dataB == '3'){
+        TotalCal = '1200';
+        TotalFat = '13';
+        TotalPro = '140';
+    }else if(dataB == '5'){
+        TotalCal = '1600';
+        TotalFat = '400';
+        TotalPro = '60';
+    }else if(dataB == '6'){
+        TotalCal = '1050';
+        TotalFat = '450';
+        TotalPro = '375';
+    }
+
+        if (double.parse(cal) > double.parse(TotalCal) &&
           double.parse(fat) > double.parse(TotalFat) &&
           double.parse(pro) > double.parse(TotalPro)) {
         cal = TotalCal;
@@ -79,7 +124,8 @@ class _DashboardState extends State<Dashboard> {
             backgroundColor: Color.fromARGB(255, 0, 0, 0),
             textColor: Colors.white,
             fontSize: 16);
-      } else if (double.parse(cal) > double.parse(TotalCal) &&
+      } 
+  else if (double.parse(cal) > double.parse(TotalCal) &&
           double.parse(fat) > double.parse(TotalFat)) {
         cal = TotalCal;
         fat = TotalFat;
@@ -90,7 +136,8 @@ class _DashboardState extends State<Dashboard> {
             backgroundColor: Color.fromARGB(255, 0, 0, 0),
             textColor: Colors.white,
             fontSize: 16);
-      } else if (double.parse(cal) > double.parse(TotalCal) &&
+      } 
+  else if (double.parse(cal) > double.parse(TotalCal) &&
           double.parse(pro) > double.parse(TotalPro)) {
         cal = TotalCal;
         pro = TotalPro;
@@ -140,8 +187,19 @@ class _DashboardState extends State<Dashboard> {
             textColor: Colors.white,
             fontSize: 16);
       }
+
+
     });
   }
+
+  @override
+  void initState() {
+    setState(() {
+      _initData();
+    });
+  }
+ 
+
 
   @override
   Widget build(BuildContext context) {

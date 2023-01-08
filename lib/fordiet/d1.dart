@@ -1314,7 +1314,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       ),
                       backgroundColor: Color(0xFF7A9BEE),
                       onPressed: () {
-                        AuthService().diet('1').then((val) {
+                        AuthService().diet().then((val) {
                          
                          
                             if (widget.foodName == 'Keto' &&(val.data['msg']=='1' || val.data['msg']=='2')) {

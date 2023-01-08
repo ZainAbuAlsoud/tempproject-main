@@ -176,7 +176,7 @@ class AuthService {
     return await dio.get('http://192.168.1.76:4000/getKeto');
   }
 
-    diet(num) async {
+    diet() async {
     return await dio.get('http://192.168.1.76:4000/getDiet');
   }
 
