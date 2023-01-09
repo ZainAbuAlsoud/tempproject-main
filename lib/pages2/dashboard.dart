@@ -18,6 +18,7 @@ String fat1 = '0';
 String TotalCal = '0';
 String TotalPro = '0';
 String TotalFat = '0';
+late String em = '';
 
 class Dashboard extends StatefulWidget {
   final String dat;
@@ -25,34 +26,40 @@ class Dashboard extends StatefulWidget {
     super.key,
     required this.dat,
   });
+  
   @override
   _DashboardState createState() => _DashboardState();
+  
 }
 
 class _DashboardState extends State<Dashboard> {
+  
   late Map<String, dynamic> valueMapC;
   late Map<String, dynamic> valueMapP;
   late Map<String, dynamic> valueMapF;
   late Map<String, dynamic> valueMapBB;
-  Map<String, String> t={'email':'j'};
+  Map<String, String> t = {'email': em};
   List<mongoDashModel> myAllDaeaD = [];
 
   int mD = 0;
+  
+  
 
   _initData() async {
-    
+    em=widget.dat.split('-')[1];
     var responseC = await http.get(
-      
       Uri.parse("http://192.168.1.76:4000/getCalories"),
-      headers: t,
+      headers: {'email': em},
     );
 
     var responseP = await http.get(
       Uri.parse("http://192.168.1.76:4000/getProtein"),
+      headers: {'email': em},
     );
 
     var responseF = await http.get(
       Uri.parse("http://192.168.1.76:4000/getFats"),
+      headers: {'email': em},
     );
 
     var responseB = await http.get(
@@ -76,19 +83,18 @@ class _DashboardState extends State<Dashboard> {
 
     if (dataB == '2') {
       myAllDaeaD.add(mongoDashModel(dataC, dataP, dataF, '450', '1050', '50'));
-    }else if(dataB == '4'){
+    } else if (dataB == '4') {
       myAllDaeaD.add(mongoDashModel(dataC, dataP, dataF, '2400', '100', '220'));
-    }else if(dataB == '3'){
+    } else if (dataB == '3') {
       myAllDaeaD.add(mongoDashModel(dataC, dataP, dataF, '1200', '13', '140'));
-    }else if(dataB == '5'){
+    } else if (dataB == '5') {
       myAllDaeaD.add(mongoDashModel(dataC, dataP, dataF, '1600', '400', '60'));
-    }else if(dataB == '6'){
+    } else if (dataB == '6') {
       myAllDaeaD.add(mongoDashModel(dataC, dataP, dataF, '150', '450', '375'));
     }
 
-
-
     setState(() {
+      em = widget.dat.split('-')[1];
       cal = dataC;
       pro = dataP;
       fat = dataF;
@@ -99,26 +105,25 @@ class _DashboardState extends State<Dashboard> {
         TotalCal = '450';
         TotalFat = '1050';
         TotalPro = '50';
-      
-    }else if(dataB == '4'){
+      } else if (dataB == '4') {
         TotalCal = '2400';
         TotalFat = '100';
         TotalPro = '220';
-    }else if(dataB == '3'){
+      } else if (dataB == '3') {
         TotalCal = '1200';
         TotalFat = '13';
         TotalPro = '140';
-    }else if(dataB == '5'){
+      } else if (dataB == '5') {
         TotalCal = '1600';
         TotalFat = '400';
         TotalPro = '60';
-    }else if(dataB == '6'){
+      } else if (dataB == '6') {
         TotalCal = '1050';
         TotalFat = '450';
         TotalPro = '375';
-    }
+      }
 
-        if (double.parse(cal) > double.parse(TotalCal) &&
+      if (double.parse(cal) > double.parse(TotalCal) &&
           double.parse(fat) > double.parse(TotalFat) &&
           double.parse(pro) > double.parse(TotalPro)) {
         cal = TotalCal;
@@ -132,8 +137,7 @@ class _DashboardState extends State<Dashboard> {
             backgroundColor: Color.fromARGB(255, 0, 0, 0),
             textColor: Colors.white,
             fontSize: 16);
-      } 
-  else if (double.parse(cal) > double.parse(TotalCal) &&
+      } else if (double.parse(cal) > double.parse(TotalCal) &&
           double.parse(fat) > double.parse(TotalFat)) {
         cal = TotalCal;
         fat = TotalFat;
@@ -144,8 +148,7 @@ class _DashboardState extends State<Dashboard> {
             backgroundColor: Color.fromARGB(255, 0, 0, 0),
             textColor: Colors.white,
             fontSize: 16);
-      } 
-  else if (double.parse(cal) > double.parse(TotalCal) &&
+      } else if (double.parse(cal) > double.parse(TotalCal) &&
           double.parse(pro) > double.parse(TotalPro)) {
         cal = TotalCal;
         pro = TotalPro;
@@ -195,8 +198,6 @@ class _DashboardState extends State<Dashboard> {
             textColor: Colors.white,
             fontSize: 16);
       }
-
-
     });
   }
 
@@ -206,8 +207,6 @@ class _DashboardState extends State<Dashboard> {
       _initData();
     });
   }
- 
-
 
   @override
   Widget build(BuildContext context) {

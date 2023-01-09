@@ -1316,12 +1316,28 @@ class _DetailsPageState extends State<DetailsPage> {
                       ),
                       backgroundColor: Color(0xFF7A9BEE),
                       onPressed: () {
-                        
+                        AuthService()
+                            .checkDIET(widget.dat.split('-')[1])
+                            .then((val) {
+                          if (val.data['success'] == false) {
+                            AuthService().addDiet(widget.dat.split('-')[1],
+                                false, false, false, false, false, false, '1');
+                          } else if (val.data['success'] == true) {
+                              Fluttertoast.showToast(
+                                msg: 'You can' +
+                                    "'" +
+                                    't choose this type until 30 days',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                backgroundColor: Color.fromARGB(255, 0, 0, 0),
+                                textColor: Colors.white,
+                                fontSize: 16);
+                          }
+                        });
                         AuthService().diet().then((val) {
                           if (widget.foodName == 'Keto' &&
                               (val.data['msg'] == '1' ||
                                   val.data['msg'] == '2')) {
-                                    
                             AuthService().updateDIET(
                                 '1', true, false, false, false, false, false);
                             Navigator.push(
