@@ -26,14 +26,12 @@ class Dashboard extends StatefulWidget {
     super.key,
     required this.dat,
   });
-  
+
   @override
   _DashboardState createState() => _DashboardState();
-  
 }
 
 class _DashboardState extends State<Dashboard> {
-  
   late Map<String, dynamic> valueMapC;
   late Map<String, dynamic> valueMapP;
   late Map<String, dynamic> valueMapF;
@@ -42,11 +40,9 @@ class _DashboardState extends State<Dashboard> {
   List<mongoDashModel> myAllDaeaD = [];
 
   int mD = 0;
-  
-  
 
   _initData() async {
-    em=widget.dat.split('-')[1];
+    em = widget.dat.split('-')[1];
     var responseC = await http.get(
       Uri.parse("http://192.168.1.76:4000/getCalories"),
       headers: {'email': em},
@@ -212,89 +208,6 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   elevation: 0,
-      //   titleSpacing: 10,
-      //   backgroundColor: Colors.white,
-      //   title: Row(
-      //     mainAxisAlignment: MainAxisAlignment.start,
-      // children: <Widget>[
-      //   Container(
-      //     width: 40,
-      //     height: 40,
-      //     margin: EdgeInsets.only(right: 10),
-      //     child: ClipRRect(
-      //       borderRadius: BorderRadius.circular(5),
-      //       child: Image.network(
-      //         'https://i.pravatar.cc/100',
-      //       ),
-      //     ),
-      //   ),
-      //   Column(
-      //     mainAxisAlignment: MainAxisAlignment.center,
-      //     crossAxisAlignment: CrossAxisAlignment.start,
-      //     children: <Widget>[
-      //       Text(
-      //         'Julia Vins',
-      //         style: TextStyle(
-      //           color: Theme.of(context).accentColor,
-      //           fontSize: 16,
-      //           fontWeight: FontWeight.bold,
-      //         ),
-      //       ),
-      //       Text(
-      //         'Feb 25, 2018',
-      //         style: TextStyle(
-      //           color: Theme.of(context).accentColor,
-      //           fontSize: 12,
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ],
-      // ),
-      // actions: <Widget>[
-      //   TextButton(
-      //     onPressed: () {},
-      //     child: Stack(
-      //       //overflow: Overflow.visible,
-      //       children: <Widget>[
-      //         Container(
-      //           width: 50,
-      //           child: Icon(
-      //             Icons.notifications,
-      //             color: Theme.of(context).accentColor,
-      //             size: 35,
-      //           ),
-      //         ),
-      //         Positioned(
-      //           top: 0,
-      //           right: 0,
-      //           width: 20,
-      //           height: 20,
-      //           child: Container(
-      //             decoration: BoxDecoration(
-      //               borderRadius: BorderRadius.circular(25),
-      //               color: Colors.red,
-      //             ),
-      //             width: 20,
-      //             height: 20,
-      //             child: Center(
-      //               child: Text(
-      //                 '03',
-      //                 style: TextStyle(
-      //                   color: Colors.white,
-      //                   fontSize: 9,
-      //                 ),
-      //               ),
-      //             ),
-      //           ),
-      //         ),
-      //       ],
-      //     ),
-      //   )
-      // ],
-      // ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.fromLTRB(25, 30, 25, 25),
@@ -303,86 +216,41 @@ class _DashboardState extends State<Dashboard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                SizedBox(
+                  height: 20,
+                ),
                 Container(
-                  width: 70,
-                  height: 70,
-                  padding: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: Theme.of(context).primaryColor.withAlpha(50),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Vetial Signs",
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontFamily: 'Nunito',
+                          color: Color.fromARGB(255, 98, 10, 114),
+                        ),
+                      ),
+                      Image.asset('assets/images/heart.png', width: 100),
+                    ],
                   ),
-                  child: Image.asset(
-                    'assets/img/shoe.png',
-                    width: 60,
-                  ),
+                  // width: 70,
+                  //  height: 70,
+                  //   padding: EdgeInsets.all(15),
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(100),
+                  //     color: Theme.of(context).primaryColor.withAlpha(50),
+                  //   ),
+                  // Image.asset(
+                  //   'assets/img/shoe.png',
+                  //   width: 60,
+                  // ),
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 30),
                 ),
-                // Text(
-                //   '6522',
-                //   style: TextStyle(
-                //     color: Theme.of(context).primaryColor,
-                //     fontSize: 80,
-                //     fontFamily: 'Bebas',
-                //     fontWeight: FontWeight.bold,
-                //   ),
-                // ),
-                // Padding(
-                //   padding: EdgeInsets.only(top: 15),
-                // ),
-                // Container(
-                //   padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
-                //   width: MediaQuery.of(context).size.width,
-                //   child: Column(
-                //     children: <Widget>[
-                //       Row(
-                //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //         children: <Widget>[
-                //           Text(
-                //             '0 Steps'.toUpperCase(),
-                //             style: TextStyle(
-                //               color: Colors.grey,
-                //             ),
-                //           ),
-                //           Text(
-                //             '9000 Steps'.toUpperCase(),
-                //             style: TextStyle(
-                //               color: Colors.grey,
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //       LinearPercentIndicator(
-                //         lineHeight: 8.0,
-                //         percent: 0.7,
-                //         linearStrokeCap: LinearStrokeCap.roundAll,
-                //         backgroundColor:
-                //             Theme.of(context).accentColor.withAlpha(30),
-                //         progressColor: Theme.of(context).primaryColor,
-                //       ),
-                //       Padding(
-                //         padding: EdgeInsets.only(top: 30),
-                //       ),
-                //       Text(
-                //         'Steps Taken'.toUpperCase(),
-                //         style: TextStyle(
-                //           color: Theme.of(context).accentColor,
-                //           fontFamily: 'Bebas',
-                //           fontSize: 24,
-                //           fontWeight: FontWeight.bold,
-                //         ),
-                //       ),
-                //       Text(
-                //         'You walked 165 min today',
-                //         style: TextStyle(
-                //           color: Theme.of(context).accentColor,
-                //           fontSize: 16,
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
                 Divider(
                   height: 25,
                   color: Colors.grey[300],
@@ -398,8 +266,9 @@ class _DashboardState extends State<Dashboard> {
                             Text(
                               'CALORIES',
                               style: TextStyle(
-                                color: Theme.of(context).primaryColor,
+                                color: Color.fromARGB(255, 98, 10, 114),
                                 fontWeight: FontWeight.bold,
+                                fontFamily: 'Nunito',
                               ),
                             ),
                             RichText(
@@ -409,7 +278,7 @@ class _DashboardState extends State<Dashboard> {
                                     text: cal1,
                                     style: TextStyle(
                                       fontSize: 20,
-                                      color: Theme.of(context).accentColor,
+                                      color: Color.fromARGB(255, 218, 135, 233),
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -434,8 +303,9 @@ class _DashboardState extends State<Dashboard> {
                             Text(
                               'PROTEIN',
                               style: TextStyle(
-                                color: Theme.of(context).primaryColor,
+                                color: Color.fromARGB(255, 98, 10, 114),
                                 fontWeight: FontWeight.bold,
+                                fontFamily: 'Nunito',
                               ),
                             ),
                             RichText(
@@ -445,7 +315,7 @@ class _DashboardState extends State<Dashboard> {
                                     text: pro1,
                                     style: TextStyle(
                                       fontSize: 20,
-                                      color: Theme.of(context).accentColor,
+                                      color: Color.fromARGB(255, 218, 135, 233),
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -470,8 +340,9 @@ class _DashboardState extends State<Dashboard> {
                             Text(
                               'FAT',
                               style: TextStyle(
-                                color: Theme.of(context).primaryColor,
+                                color: Color.fromARGB(255, 98, 10, 114),
                                 fontWeight: FontWeight.bold,
+                                fontFamily: 'Nunito',
                               ),
                             ),
                             RichText(
@@ -481,7 +352,7 @@ class _DashboardState extends State<Dashboard> {
                                     text: fat1,
                                     style: TextStyle(
                                       fontSize: 20,
-                                      color: Theme.of(context).accentColor,
+                                      color: Color.fromARGB(255, 218, 135, 233),
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -509,44 +380,26 @@ class _DashboardState extends State<Dashboard> {
                   padding: EdgeInsets.only(top: 10),
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
                       'DIET PROGRESS',
                       style: TextStyle(
-                        color: Theme.of(context).accentColor,
-                        fontSize: 24,
-                        fontFamily: 'Bebas',
+                        color: Color.fromARGB(255, 98, 10, 114),
+                        fontSize: 20,
+                        fontFamily: 'Nunito',
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Row(
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/img/down_orange.png',
-                          width: 20,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(right: 15),
-                        ),
-                        Text(
-                          '500 Calories',
-                          style: TextStyle(
-                            color: Colors.orange,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
-                    )
                   ],
                 ),
                 Container(
-                  height: 250,
+                  height: 400,
                   padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
                   child: ListView(
                     physics: ClampingScrollPhysics(),
                     shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
+                    scrollDirection: Axis.vertical,
                     children: <Widget>[
                       StatCard(
                         title: 'Calories',
