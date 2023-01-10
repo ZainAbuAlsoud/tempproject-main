@@ -18,6 +18,7 @@ class water extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      
       title: 'Water tracker',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -111,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
               center: new Text(
-                '$number % \n $tex',
+                '$number % ',
                 style: new TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,

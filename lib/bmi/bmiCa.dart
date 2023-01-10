@@ -16,9 +16,7 @@ class scorescreen extends StatefulWidget {
 
   Color? bmiStatusColor;
 
-  scorescreen(
-      {super.key,
-      required this.dat});
+  scorescreen({super.key, required this.dat});
 
   @override
   State<scorescreen> createState() => _scorescreenState();
@@ -30,7 +28,8 @@ class _scorescreenState extends State<scorescreen> {
   @override
   void initState() {
     // TODO: implement initState
-    bmiscore = double.parse(widget.dat.split('-')[2]) / pow(int.parse(widget.dat.split('-')[3]) / 100, 2);
+    bmiscore = double.parse(widget.dat.split('-')[2]) /
+        pow(int.parse(widget.dat.split('-')[3]) / 100, 2);
   }
 
   @override
@@ -39,7 +38,14 @@ class _scorescreenState extends State<scorescreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("BMI Score"),
+        backgroundColor: Color.fromARGB(255, 98, 2, 114),
+        title: Text(
+          "BMI Score",
+          style: TextStyle(
+            fontFamily: 'Nunito',
+            fontSize: 23,
+          ),
+        ),
       ),
       body: Container(
           padding: const EdgeInsets.all(12),
@@ -51,7 +57,8 @@ class _scorescreenState extends State<scorescreen> {
                   children: [
                     const Text(
                       "Your score",
-                      style: TextStyle(fontSize: 30, color: Colors.blue),
+                      style: TextStyle(
+                          fontSize: 30, color: Color.fromARGB(255, 98, 2, 114)),
                     ),
                     const SizedBox(
                       height: 10,
@@ -61,17 +68,21 @@ class _scorescreenState extends State<scorescreen> {
                       minValue: 0,
                       maxValue: 40,
                       segments: [
-                        GaugeSegment("UnderWeight", 18.5, Colors.red),
-                        GaugeSegment("Normal", 6.4, Colors.green),
-                        GaugeSegment("OverWeight", 5, Colors.orange),
-                        GaugeSegment("Obese", 10.1, Colors.pink),
+                        GaugeSegment("UnderWeight", 18.5,
+                            Color.fromARGB(255, 223, 127, 240)),
+                        GaugeSegment(
+                            "Normal", 6.4, Color.fromARGB(255, 176, 60, 196)),
+                        GaugeSegment(
+                            "OverWeight", 5, Color.fromARGB(255, 130, 8, 152)),
+                        GaugeSegment(
+                            "Obese", 10.1, Color.fromARGB(255, 82, 6, 95)),
                       ],
                       valueWidget: Text(
                         bmiscore.toStringAsFixed(1),
                         style: const TextStyle(fontSize: 40),
                       ),
                       currentValue: bmiscore.toDouble(),
-                      needleColor: Colors.blue,
+                      needleColor: Color.fromARGB(255, 0, 0, 0),
                     ),
                     const SizedBox(
                       height: 10,
@@ -95,6 +106,9 @@ class _scorescreenState extends State<scorescreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    Color.fromARGB(255, 82, 6, 95)),
                             onPressed: () {
                               Navigator.pop(context);
                             },
@@ -103,6 +117,9 @@ class _scorescreenState extends State<scorescreen> {
                           width: 10,
                         ),
                         ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    Color.fromARGB(255, 82, 6, 95)),
                             onPressed: () {
                               Share.share(
                                   "Your BMI is ${bmiscore.toStringAsFixed(1)} at age ${int.parse(widget.dat.split('-')[4])}");
@@ -118,19 +135,19 @@ class _scorescreenState extends State<scorescreen> {
     if (bmiscore > 30) {
       widget.bmiStatus = "Obese";
       widget.bmiInterpretation = "Please work to reduce obesity";
-      widget.bmiStatusColor = Colors.pink;
+      widget.bmiStatusColor = Color.fromARGB(255, 82, 6, 95);
     } else if (bmiscore >= 25) {
       widget.bmiStatus = "Overweight";
       widget.bmiInterpretation = "Do regular exercise & reduce the weight";
-      widget.bmiStatusColor = Colors.orange;
+      widget.bmiStatusColor = Color.fromARGB(255, 130, 8, 152);
     } else if (bmiscore >= 18.5) {
       widget.bmiStatus = "Normal";
       widget.bmiInterpretation = "Enjoy, You are fit";
-      widget.bmiStatusColor = Colors.green;
+      widget.bmiStatusColor = Color.fromARGB(255, 176, 60, 196);
     } else if (bmiscore < 18.5) {
       widget.bmiStatus = "Underweight";
       widget.bmiInterpretation = "Try to increase the weight";
-      widget.bmiStatusColor = Colors.red;
+      widget.bmiStatusColor = Color.fromARGB(255, 223, 127, 240);
     }
   }
 }
