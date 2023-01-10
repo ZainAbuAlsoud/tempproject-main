@@ -48,7 +48,6 @@ dependencies:
   vertical_weight_slider: ^2.4.0
   advance_text_field: ^0.0.5
   sleek_circular_slider: ^2.0.1
-  flutter_svg: ^0.19.0
   swipeable_button_view: ^0.0.2
   page_transition: ^2.0.5
   circular_countdown_timer: ^0.0.8  
@@ -56,6 +55,12 @@ dependencies:
   syncfusion_flutter_datepicker: ^18.3.48
   flutter_markdown: ^0.6.13
   http: ^0.13.5
+  animations: ^2.0.0
+  flutter_bloc: ^7.0.0
+  rxdart: ^0.26.0
+  timezone: ^0.8.0
+  flutter_svg: ^0.21.0-nullsafety.0
+  flutter_local_notifications: ^9.3.1
  
 
 dev_dependencies:
@@ -93,6 +98,11 @@ flutter:
     - assets/plate4.png
     - assets/plate5.png
     - assets/plate6.png
+    - assets/180.png
+    - assets/250.png
+    - assets/500.png
+    - assets/750.png
+    - assets/type-0.png
   #   - images/a_dot_ham.jpeg
 
  

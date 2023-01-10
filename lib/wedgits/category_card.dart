@@ -6,6 +6,7 @@ import '../constants.dart';
 import '../fordiet/m1.dart';
 import '../pages2/mainforprofile.dart';
 import '../screens/details_screen.dart';
+import '../waterapp.dart';
 
 class CategoryCard extends StatelessWidget {
   final String svgSrc;
@@ -57,6 +58,11 @@ class CategoryCard extends StatelessWidget {
               if (title == "Diet Types") {
                 Navigator.push(context,
                     MaterialPageRoute(builder: ((context) => MyAppdiet(dat:dat))));
+              }
+
+              if (title == "Water Tracker") {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: ((context) => water(dat:dat))));
               }
             },
             child: Padding(

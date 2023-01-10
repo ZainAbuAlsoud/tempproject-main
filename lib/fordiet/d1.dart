@@ -1334,12 +1334,12 @@ class _DetailsPageState extends State<DetailsPage> {
                                 fontSize: 16);
                           }
                         });
-                        AuthService().diet().then((val) {
+                        AuthService().diet(widget.dat.split('-')[1]).then((val) {
                           if (widget.foodName == 'Keto' &&
                               (val.data['msg'] == '1' ||
                                   val.data['msg'] == '2')) {
                             AuthService().updateDIET(
-                                '1', true, false, false, false, false, false);
+                                widget.dat.split('-')[1],'1', true, false, false, false, false, false);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -1350,7 +1350,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               (val.data['msg'] == '1' ||
                                   val.data['msg'] == '4')) {
                             AuthService().updateDIET(
-                                '1', false, false, true, false, false, false);
+                                widget.dat.split('-')[1],'1', false, false, true, false, false, false);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -1361,7 +1361,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               (val.data['msg'] == '1' ||
                                   val.data['msg'] == '3')) {
                             AuthService().updateDIET(
-                                '1', false, true, false, false, false, false);
+                                widget.dat.split('-')[1],'1', false, true, false, false, false, false);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -1372,7 +1372,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               (val.data['msg'] == '1' ||
                                   val.data['msg'] == '5')) {
                             AuthService().updateDIET(
-                                '1', false, false, false, true, false, false);
+                                widget.dat.split('-')[1],'1', false, false, false, true, false, false);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -1383,7 +1383,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               (val.data['msg'] == '1' ||
                                   val.data['msg'] == '6')) {
                             AuthService().updateDIET(
-                                '1', false, false, false, false, true, false);
+                                widget.dat.split('-')[1],'1', false, false, false, false, true, false);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -1394,7 +1394,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               (val.data['msg'] == '1' ||
                                   val.data['msg'] == '7')) {
                             AuthService().updateDIET(
-                                '1', false, false, false, false, false, true);
+                                widget.dat.split('-')[1],'1', false, false, false, false, false, true);
                             Navigator.push(
                               context,
                               MaterialPageRoute(

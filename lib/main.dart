@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'main2.dart';
 
 void main() {
+
   runApp(const MyApp());
 }
 

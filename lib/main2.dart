@@ -123,7 +123,7 @@ class HomeScreen extends StatelessWidget {
                                dat: dat,
                             ),
                             CategoryCard(
-                              title: "Personal Trainer",
+                              title: "Water Tracker",
                               svgSrc: "assets/icons/yoga.svg",
                                dat: dat,
                               // press: () {},

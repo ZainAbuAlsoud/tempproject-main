@@ -176,7 +176,8 @@ class AuthService {
     return await dio.get('http://192.168.1.76:4000/getKeto');
   }
 
-    diet() async {
+    diet(email) async {
+      dio.options.headers['email'] = email;
     return await dio.get('http://192.168.1.76:4000/getDiet');
   }
 
@@ -186,20 +187,20 @@ class AuthService {
           data: {"email": email },
           options: Options(contentType: Headers.formUrlEncodedContentType));
     } on DioError catch (e) {
-      Fluttertoast.showToast(
-          msg: e.response!.data['msg'],
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: Color.fromARGB(255, 0, 0, 0),
-          textColor: Colors.white,
-          fontSize: 16);
+      // Fluttertoast.showToast(
+      //     msg: e.response!.data['msg'],
+      //     toastLength: Toast.LENGTH_SHORT,
+      //     gravity: ToastGravity.BOTTOM,
+      //     backgroundColor: Color.fromARGB(255, 0, 0, 0),
+      //     textColor: Colors.white,
+      //     fontSize: 16);
     }
    }
 
-    updateDIET(num, keto,paleo,vegetarian,raw,carb,sugar) async {
+    updateDIET(email,num, keto,paleo,vegetarian,raw,carb,sugar) async {
     try {
       return await dio.post('http://192.168.1.76:4000/updateDiet',
-          data: {"num": num, "keto": keto,"paleo":paleo,"vegetarian":vegetarian,"raw":raw,"carb":carb,"sugar":sugar},
+          data: {"email":email,"num": num, "keto": keto,"paleo":paleo,"vegetarian":vegetarian,"raw":raw,"carb":carb,"sugar":sugar},
           options: Options(contentType: Headers.formUrlEncodedContentType));
     } on DioError catch (e) {
       Fluttertoast.showToast(

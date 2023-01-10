@@ -1,4 +1,5 @@
 import 'dart:convert';
+// import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -60,6 +61,7 @@ class _DashboardState extends State<Dashboard> {
 
     var responseB = await http.get(
       Uri.parse("http://192.168.1.76:4000/getDiet"),
+      headers: {'email': em},
     );
 
     String jsonsDataStringC = responseC.body.toString();
@@ -118,7 +120,7 @@ class _DashboardState extends State<Dashboard> {
         TotalFat = '450';
         TotalPro = '375';
       }
-
+      print(dataB);
       if (double.parse(cal) > double.parse(TotalCal) &&
           double.parse(fat) > double.parse(TotalFat) &&
           double.parse(pro) > double.parse(TotalPro)) {
@@ -223,7 +225,7 @@ class _DashboardState extends State<Dashboard> {
                   child: Column(
                     children: [
                       Text(
-                        "Vetial Signs",
+                        "Vetal Signs",
                         style: TextStyle(
                           fontSize: 30,
                           fontFamily: 'Nunito',
