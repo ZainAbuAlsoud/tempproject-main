@@ -3,30 +3,90 @@ import 'package:flutter/material.dart' as prefix0;
 //import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 
-class ActivityTimer extends StatelessWidget {
-  final String image =
-      'assets/images/plank-abs.gif';
-  final String tag = 'imageHeader';
+import '../models/exModel.dart';
 
+import 'dart:convert';
 
-  final String Newname;
-  final String Newvideo;
-  final String Newdesc;
+import 'package:http/http.dart' as http;
+
+String names = '';
+String Newname = " ";
+String Newvideo = " ";
+String Newdesc = " ";
+
+int i = 0;
+
+class ActivityTimer extends StatefulWidget {
+  final String level;
+  final String v;
+  List<exModel> da = [];
   final int nnum;
 
   ActivityTimer(
       {
       //   required this.exercise,
-      required this.Newname,
-      required this.Newvideo,
-      required this.Newdesc,
+      required this.level,
+      required this.v,
+      required this.da,
       required this.nnum});
+
+  @override
+  State<ActivityTimer> createState() => _ActivityTimerState();
+}
+
+class _ActivityTimerState extends State<ActivityTimer> {
+  // final String image = 'assets/images/plank-abs.gif';
+
+  final String tag = 'imageHeader';
+
+  // late Map<String, dynamic> valueMap4;
+
+  // List<exModel> myAllDaea4 = [];
+
+  // int m4 = 0;
+  // _initData() async {
+  //   var response4 = await http.get(
+  //     Uri.parse("http://192.168.1.76:4000/getNormal"),
+  //   );
+
+  //   String jsonsDataString4 = response4.body.toString();
+  //   valueMap4 = json.decode(response4.body);
+  //   List<dynamic> data4 = valueMap4["msg"];
+
+  //   for (var info4 in data4) {
+  //     myAllDaea4.add(exModel(info4["name"], info4["video"], info4["desc"]));
+  //     Newname = info4['name'];
+  //     Newvideo = info4['video'];
+  //     Newdesc = info4['desc'];
+  //     m4 = myAllDaea4.length;
+  //     setState(() {
+  //       Newname = info4['name'];
+  //       Newvideo = info4['video'];
+  //       Newdesc = info4['desc'];
+  //     });
+
+  //     names = myAllDaea4[0].video;
+  //   }
+  // }
+
+  // @override
+  // void initState() {
+  //   setState(() {
+  //     _initData();
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Portrait(image: Newname, tag: tag),
-        
+        child: Portrait(
+            level: widget.level,
+            tag: tag,
+            v: widget.v,
+            da: widget.da,
+            nnum: widget.nnum),
+
         // child: OrientationBuilder(builder: (context, orientation) {
         //   return (MediaQuery.of(context).orientation ==
         //           prefix0.Orientation.portrait)
@@ -39,16 +99,31 @@ class ActivityTimer extends StatelessWidget {
 }
 
 class Portrait extends StatefulWidget {
-  final String image, tag;
- 
-  Portrait({required this.image, required this.tag});
+  final String tag;
+  final String level;
+
+  final String v;
+  List<exModel> da = [];
+  final int nnum;
+  Portrait(
+      {required this.level,
+      required this.tag,
+      required this.v,
+      required this.da,
+      required this.nnum});
 
   @override
   State<Portrait> createState() => _PortraitState();
 }
 
 class _PortraitState extends State<Portrait> {
-   CountDownController _controller = CountDownController();
+  @override
+  void initState() {
+    // print(widget.da[0].video);
+    super.initState();
+  }
+
+  CountDownController _controller = CountDownController();
   bool _isPause = false;
   @override
   Widget build(BuildContext context) {
@@ -63,7 +138,7 @@ class _PortraitState extends State<Portrait> {
                 width: MediaQuery.of(context).size.width,
                 height: 270,
                 child: Image.asset(
-                  this.widget.image,
+                  widget.da[i].video,
                   fit: BoxFit.fitHeight,
                 ),
               ),
@@ -107,41 +182,57 @@ class _PortraitState extends State<Portrait> {
                       children: [
                         InkWell(
                           child: Icon(
-                             Icons.open_in_browser,
-                             color: Color.fromARGB(255, 139, 138, 138),
-                              size: 30.0,
-                              
-                              ),
-                              onTap: () {
-                                showDialog(context: context, builder: (context)=>AlertDialog(
-                                  title:Text("know this exersise",style: TextStyle(color:Color.fromARGB(255, 59, 58, 59) ),),
-                                  content: Text(" holding the trunk part of your body in a straight line off the ground. The static exercise engages multiple muscle groups at the same time which makes it extremely effective at strengthening your core, whilst also working the shoulders, arms and glutes",
-                                  style: TextStyle(color:Color.fromARGB(255, 112, 19, 112) ),
-                                  ),
-                                actions: [
-                                  TextButton(onPressed: ()=>Navigator.pop(context), child: Text("ok",style: TextStyle(color:Color.fromARGB(255, 112, 19, 112) ),))
-                                ],
-
-                                ));
-                              },
+                            Icons.open_in_browser,
+                            color: Color.fromARGB(255, 139, 138, 138),
+                            size: 30.0,
+                          ),
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                      title: Text(
+                                        "know this exersise",
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 59, 58, 59)),
+                                      ),
+                                      content: Text(
+                                        widget.da[i].desc,
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 112, 19, 112)),
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () =>
+                                                Navigator.pop(context),
+                                            child: Text(
+                                              "ok",
+                                              style: TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 112, 19, 112)),
+                                            ))
+                                      ],
+                                    ));
+                          },
                         ),
-                            SizedBox(width: 90,),
+                        SizedBox(
+                          width: 90,
+                        ),
                         Text(
-                        'Plank',
-                        style: TextStyle(
-                          fontSize: 28.0,
-                          fontWeight: FontWeight.w900,
-                          color: Colors.grey[700],
+                          widget.da[i].name,
+                          style: TextStyle(
+                            fontSize: 28.0,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.grey[700],
+                          ),
                         ),
-                      ),
-
                       ],
-                      
                     ),
                     Container(
-                     // padding: const EdgeInsets.only(bottom: 10.0),
+                      // padding: const EdgeInsets.only(bottom: 10.0),
                       child: Text(
-                        'Next: Push-ups',
+                        'Next: ' + widget.da[i++].name,
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.w900,
@@ -150,85 +241,110 @@ class _PortraitState extends State<Portrait> {
                       ),
                     ),
                     Container(
-                    // padding: const EdgeInsets.only(top: 10.0),
+                        // padding: const EdgeInsets.only(top: 10.0),
                         child: CircularCountDownTimer(
                       // Countdown duration in Seconds
                       duration: 40,
-              
+
                       // Controller to control (i.e Pause, Resume, Restart) the Countdown
                       controller: _controller,
-              
+
                       // Width of the Countdown Widget
                       width: MediaQuery.of(context).size.width / 2,
-              
+
                       // Height of the Countdown Widget
                       height: MediaQuery.of(context).size.height / 3,
-              
+
                       // Default Color for Countdown Timer
                       color: Colors.white,
-              
+
                       // Filling Color for Countdown Timer
                       fillColor: Color.fromRGBO(190, 130, 255, 1.0),
-              
+
                       // Background Color for Countdown Widget
                       backgroundColor: null,
-              
+
                       // Border Thickness of the Countdown Circle
                       strokeWidth: 10.0,
-              
+
                       // Begin and end contours with a flat edge and no extension
                       strokeCap: StrokeCap.butt,
-              
+
                       // Text Style for Countdown Text
                       textStyle: TextStyle(
-                          fontSize: 22.0, color: Colors.black, fontWeight: FontWeight.bold),
-              
+                          fontSize: 22.0,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+
                       // true for reverse countdown (max to 0), false for forward countdown (0 to max)
                       isReverse: false,
-              
+
                       // true for reverse animation, false for forward animation
                       isReverseAnimation: false,
-              
+
                       // Optional [bool] to hide the [Text] in this widget.
                       isTimerTextShown: true,
-              
+
                       // Function which will execute when the Countdown Ends
                       onComplete: () {
                         // Here, do whatever you want
+
                         print('Countdown Ended');
                       },
-                    )
-              
-              
-              
-                     
-                    ),
-                    
-                     Container(
+                    )),
+                    Container(
                       width: 500,
                       height: 70,
-                       child: FloatingActionButton.extended(
-                        
-                        backgroundColor:Color.fromARGB(255, 100, 19, 187) ,
-                          onPressed: () {
-                            setState(() {
-                if (_isPause) {
-                  _isPause = false;
-                  _controller.resume();
-                } else {
-                  _isPause = true;
-                  _controller.pause();
-                }
-                            });
-                          },
-                          
-                          icon: Icon(_isPause ? Icons.play_arrow : Icons.pause),
-                          label: Text(_isPause ? "Resume" : "Pause")),
-                     ),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 20,
+                          ),
+                          FloatingActionButton.extended(
+                              backgroundColor:
+                                  Color.fromARGB(255, 100, 19, 187),
+                              onPressed: () {
+                                setState(() {
+                                  if (_isPause) {
+                                    _isPause = false;
+                                    _controller.resume();
+                                  } else {
+                                    _isPause = true;
+                                    _controller.pause();
+                                  }
+                                });
+                              },
+                              icon: Icon(
+                                  _isPause ? Icons.play_arrow : Icons.pause),
+                              label: Text(_isPause ? "Resume" : "Pause")),
+                          SizedBox(
+                            width: 60,
+                          ),
+                          SizedBox(
+                            width: 110,
+                            height: 45,
+                            child: ElevatedButton(
+                              onPressed: (() {
+                                setState(() {
+                                  
+                                  i++;
+                                });
+                              }),
+                              child: Text('Next'),
+                              style: ElevatedButton.styleFrom(
+                                primary: Color.fromARGB(255, 100, 19, 187),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
-              
             ],
           ),
         ),

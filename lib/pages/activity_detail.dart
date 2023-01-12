@@ -60,7 +60,7 @@ class _ActivityDetailState extends State<ActivityDetail> {
         Newvideo = info4['video'];
         Newdesc = info4['desc'];
       });
-      print(Newname);
+      print(Newvideo.split('assets')[1]);
     }
   }
 
@@ -276,7 +276,8 @@ class _ActivityDetailState extends State<ActivityDetail> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (_) {
-              return ActivityTimer(Newname:Newname,Newvideo:Newvideo,Newdesc:Newdesc,nnum:widget.nnum);
+              return ActivityTimer(
+                  level:level,v:Newvideo,da:myAllDaea4,nnum:widget.nnum);
             }),
           );
         },
