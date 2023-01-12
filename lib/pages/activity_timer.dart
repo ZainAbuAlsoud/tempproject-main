@@ -8,11 +8,24 @@ class ActivityTimer extends StatelessWidget {
       'assets/images/plank-abs.gif';
   final String tag = 'imageHeader';
 
+
+  final String Newname;
+  final String Newvideo;
+  final String Newdesc;
+  final int nnum;
+
+  ActivityTimer(
+      {
+      //   required this.exercise,
+      required this.Newname,
+      required this.Newvideo,
+      required this.Newdesc,
+      required this.nnum});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Portrait(image: image, tag: tag),
+        child: Portrait(image: Newname, tag: tag),
         
         // child: OrientationBuilder(builder: (context, orientation) {
         //   return (MediaQuery.of(context).orientation ==

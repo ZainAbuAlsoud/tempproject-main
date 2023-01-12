@@ -1,22 +1,90 @@
 // import 'package:timer/components/next_step.dart';
 // import 'package:timer/models/exercise.dart';
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:tempproject/pages/activity_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
+import '../models/exModel.dart';
 import 'next_step.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-class ActivityDetail extends StatelessWidget {
-   
-   final String tag;
+double bmi1score = 0;
+String Newname = " ";
+String Newvideo = " ";
+String Newdesc = " ";
+String level = "";
 
-   ActivityDetail({
-  //   required this.exercise,
-    required this.tag,
-   });
+class ActivityDetail extends StatefulWidget {
+  final String tag;
+  final String dat;
+  final int nnum;
+
+  ActivityDetail(
+      {
+      //   required this.exercise,
+      required this.tag,
+      required this.dat,
+      required this.nnum});
+
+  @override
+  State<ActivityDetail> createState() => _ActivityDetailState();
+}
+
+class _ActivityDetailState extends State<ActivityDetail> {
+  late Map<String, dynamic> valueMap4;
+
+  List<exModel> myAllDaea4 = [];
+
+  int m4 = 0;
+  _initData() async {
+    var response4 = await http.get(
+      Uri.parse("http://192.168.1.76:4000/getNormal"),
+    );
+
+    String jsonsDataString4 = response4.body.toString();
+    valueMap4 = json.decode(response4.body);
+    List<dynamic> data4 = valueMap4["msg"];
+
+    for (var info4 in data4) {
+      myAllDaea4.add(exModel(info4["name"], info4["video"], info4["desc"]));
+      Newname = info4['name'];
+      Newvideo = info4['video'];
+      Newdesc = info4['desc'];
+      m4 = myAllDaea4.length;
+      setState(() {
+        Newname = info4['name'];
+        Newvideo = info4['video'];
+        Newdesc = info4['desc'];
+      });
+      print(Newname);
+    }
+  }
+
+  @override
+  void initState() {
+    setState(() {
+      bmi1score = double.parse(widget.dat.split('-')[2]) /
+          pow(int.parse(widget.dat.split('-')[3]) / 100, 2);
+      if (bmi1score >= 25) {
+        level = "Overweight";
+      } else if (bmi1score >= 18.5) {
+        level = "Normal";
+      } else if (bmi1score < 18.5) {
+        level = "Underweight";
+      }
+
+      _initData();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    // String tag;
+    print(level);
+
     var width = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -26,12 +94,12 @@ class ActivityDetail extends StatelessWidget {
             Stack(
               children: <Widget>[
                 Hero(
-                  tag: this.tag,
+                  tag: this.widget.tag,
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     height: 270,
                     child: Image.asset(
-                     'assets/images/image001.jpg',
+                      'assets/images/image001.jpg',
                       fit: BoxFit.fitHeight,
                     ),
                   ),
@@ -62,7 +130,6 @@ class ActivityDetail extends StatelessWidget {
             Stack(
               children: <Widget>[
                 Container(
-                  
                   padding: EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 20.0),
                   width: width,
                   child: Column(
@@ -84,18 +151,17 @@ class ActivityDetail extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15.0),
                         ),
                         child: Row(
-                         
                           children: <Widget>[
-                             SizedBox(width: 110,),
+                            SizedBox(
+                              width: 110,
+                            ),
                             Container(
-                              
                               margin: EdgeInsets.only(right: 55.0),
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                 
                                   Text(
                                     'Time',
                                     style: TextStyle(
@@ -106,7 +172,8 @@ class ActivityDetail extends StatelessWidget {
                                     '5 min',
                                     style: TextStyle(
                                         fontSize: 20.0,
-                                        color: Color.fromARGB(255, 163, 99, 170),
+                                        color:
+                                            Color.fromARGB(255, 163, 99, 170),
                                         fontWeight: FontWeight.w900),
                                   ),
                                 ],
@@ -118,34 +185,58 @@ class ActivityDetail extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  
-                                ],
+                                children: <Widget>[],
                               ),
                             ),
                           ],
-                          
                         ),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 15.0),
                         child: Column(
                           children: <Widget>[
-                            NextStep(
-                              image: 'assets/images/image005.jpg',
-                              title: 'Plank',
-                              seconds: 50,
-                            ),
-                            NextStep(
-                              image: 'assets/images/image006.jpg',
-                              title: 'Push-ups',
-                              seconds: 50,
-                            ),
-                            NextStep(
-                              image: 'assets/images/image007.jpg',
-                              title: 'Lateral Raise',
-                              seconds: 50,
-                            ),
+                            if (level == 'Normal' && widget.nnum % 2 == 1)
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: 5,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return GestureDetector(
+                                        child: NextStep(
+                                      image: myAllDaea4[index].video,
+                                      title: myAllDaea4[index].name,
+                                      seconds: 50,
+                                    ));
+                                  }),
+                            if (level == 'Normal' && widget.nnum % 2 == 0)
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: 5,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return GestureDetector(
+                                        child: NextStep(
+                                      image: myAllDaea4[index + 5].video,
+                                      title: myAllDaea4[index + 5].name,
+                                      seconds: 40,
+                                    ));
+                                  }),
+
+                            // NextStep(
+                            //   image: 'assets/images/image005.jpg',
+                            //   title: myAllDaea4[5].name,
+                            //   seconds: 50,
+                            // ),
+                            // NextStep(
+                            //   image: 'assets/images/image006.jpg',
+                            //   title: 'Push-ups',
+                            //   seconds: 50,
+                            // ),
+                            // NextStep(
+                            //   image: 'assets/images/image007.jpg',
+                            //   title: 'Lateral Raise',
+                            //   seconds: 50,
+                            // ),
                           ],
                         ),
                       ),
@@ -185,7 +276,7 @@ class ActivityDetail extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (_) {
-              return ActivityTimer();
+              return ActivityTimer(Newname:Newname,Newvideo:Newvideo,Newdesc:Newdesc,nnum:widget.nnum);
             }),
           );
         },

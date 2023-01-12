@@ -23,7 +23,6 @@ class MyApp3 extends StatefulWidget {
 }
 
 class _MyApp3State extends State<MyApp3> {
-  
   @override
   void initState() {
     super.initState();
@@ -39,7 +38,10 @@ class _MyApp3State extends State<MyApp3> {
         scaffoldBackgroundColor: kBackgroundColor,
         textTheme: Theme.of(context).textTheme.apply(displayColor: kTextColor),
       ),
-      home: HomeScreen(email: widget.email,dat: widget.dat,),
+      home: HomeScreen(
+        email: widget.email,
+        dat: widget.dat,
+      ),
     );
   }
 }
@@ -48,19 +50,14 @@ class HomeScreen extends StatelessWidget {
   // const HomeScreen({super.key});
   final String email;
   final String dat;
-  HomeScreen({super.key, required this.email,required this.dat});
-  
+  HomeScreen({super.key, required this.email, required this.dat});
 
   @override
   Widget build(BuildContext context) {
- 
     var size = MediaQuery.of(context)
         .size; //this gonna give us total height and with of our device
     return Scaffold(
-        drawer: NavigationDrawer(
-          email: email,
-          dat:dat
-        ),
+        drawer: NavigationDrawer(email: email, dat: dat),
         bottomNavigationBar: BottomNavBar(),
         body: Builder(
           builder: (context) => Stack(
@@ -88,7 +85,7 @@ class HomeScreen extends StatelessWidget {
                           Scaffold.of(context).openDrawer();
                         },
                       ),
-               
+
                       Text(
                         "Good Morning \n",
                         style: Theme.of(context)
@@ -97,7 +94,7 @@ class HomeScreen extends StatelessWidget {
                             ?.copyWith(fontWeight: FontWeight.w900),
                       ),
                       // SearchBar(),
-                      
+
                       Expanded(
                         child: GridView.count(
                           crossAxisCount: 2,
@@ -114,18 +111,18 @@ class HomeScreen extends StatelessWidget {
                             CategoryCard(
                               title: "Start Your sessions",
                               svgSrc: "assets/icons/Excrecises.svg",
-                               dat: dat,
+                              dat: dat,
                               // press: () {},
                             ),
                             CategoryCard(
                               title: "Vital Signs",
                               svgSrc: "assets/icons/Meditation.svg",
-                               dat: dat,
+                              dat: dat,
                             ),
                             CategoryCard(
                               title: "Water Tracker",
-                              svgSrc: "assets/icons/yoga.svg",
-                               dat: dat,
+                              svgSrc: "assets/icons/water-svgrepo-com.svg",
+                              dat: dat,
                               // press: () {},
                             ),
                           ],

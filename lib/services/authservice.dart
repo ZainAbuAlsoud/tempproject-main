@@ -131,7 +131,6 @@ class AuthService {
     return await dio.get("http://192.168.1.76:4000/getinfo");
   }
 
- 
   update1(email, weight, height, name, age) async {
     try {
       return await dio.post('http://192.168.1.76:4000/update1',
@@ -170,21 +169,29 @@ class AuthService {
     }
   }
 
-  
-
   KETO1() async {
     return await dio.get('http://192.168.1.76:4000/getKeto');
   }
 
-    diet(email) async {
-      dio.options.headers['email'] = email;
+  diet(email) async {
+    dio.options.headers['email'] = email;
     return await dio.get('http://192.168.1.76:4000/getDiet');
   }
 
-   checkDIET(email) async{
+  checkDIET(email,num, keto, paleo, vegetarian, raw, carb, sugar) async {
     try {
+      print(email);
       return await dio.post('http://192.168.1.76:4000/checkDiet',
-          data: {"email": email },
+          data: {
+            "email": email,
+            "keto": keto,
+            "paleo": paleo,
+            "vegetarian": vegetarian,
+            "raw": raw,
+            "carb": carb,
+            "sugar": sugar,
+            "num": num
+          },
           options: Options(contentType: Headers.formUrlEncodedContentType));
     } on DioError catch (e) {
       // Fluttertoast.showToast(
@@ -195,37 +202,20 @@ class AuthService {
       //     textColor: Colors.white,
       //     fontSize: 16);
     }
-   }
-
-    updateDIET(email,num, keto,paleo,vegetarian,raw,carb,sugar) async {
-    try {
-      return await dio.post('http://192.168.1.76:4000/updateDiet',
-          data: {"email":email,"num": num, "keto": keto,"paleo":paleo,"vegetarian":vegetarian,"raw":raw,"carb":carb,"sugar":sugar},
-          options: Options(contentType: Headers.formUrlEncodedContentType));
-    } on DioError catch (e) {
-      Fluttertoast.showToast(
-          msg: e.response!.data['msg'],
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: Color.fromARGB(255, 0, 0, 0),
-          textColor: Colors.white,
-          fontSize: 16);
-    }
   }
 
-    addDiet(email, keto, paleo, vegetarian, raw,carb,sugar,num) async {
+  updateDIET(email, num, keto, paleo, vegetarian, raw, carb, sugar) async {
     try {
-      return await dio.post('http://192.168.1.76:4000/addDiet',
+      return await dio.post('http://192.168.1.76:4000/updateDiet',
           data: {
-            "email":email,
+            "email": email,
+            "num": num,
             "keto": keto,
             "paleo": paleo,
             "vegetarian": vegetarian,
             "raw": raw,
             "carb": carb,
-            "sugar":sugar,
-            "num":num
-            
+            "sugar": sugar
           },
           options: Options(contentType: Headers.formUrlEncodedContentType));
     } on DioError catch (e) {
@@ -239,12 +229,36 @@ class AuthService {
     }
   }
 
-  
-  food(name, weight, fats, protein, calories,email) async {
+  addDiet(email, keto, paleo, vegetarian, raw, carb, sugar, num) async {
+    try {
+      return await dio.post('http://192.168.1.76:4000/addDiet',
+          data: {
+            "email": email,
+            "keto": keto,
+            "paleo": paleo,
+            "vegetarian": vegetarian,
+            "raw": raw,
+            "carb": carb,
+            "sugar": sugar,
+            "num": num
+          },
+          options: Options(contentType: Headers.formUrlEncodedContentType));
+    } on DioError catch (e) {
+      Fluttertoast.showToast(
+          msg: e.response!.data['msg'],
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Color.fromARGB(255, 0, 0, 0),
+          textColor: Colors.white,
+          fontSize: 16);
+    }
+  }
+
+  food(name, weight, fats, protein, calories, email) async {
     try {
       return await dio.post('http://192.168.1.76:4000/addNewFood',
           data: {
-            "email":email,
+            "email": email,
             "name": name,
             "weight": weight,
             "fats": fats,
@@ -263,15 +277,15 @@ class AuthService {
     }
   }
 
-    getCal() async {
+  getCal() async {
     return await dio.get('http://192.168.1.76:4000/getCalories');
   }
 
-      getPro() async {
+  getPro() async {
     return await dio.get('http://192.168.1.76:4000/getProtein');
   }
 
-        getFat() async {
+  getFat() async {
     return await dio.get('http://192.168.1.76:4000/getFats');
   }
 }

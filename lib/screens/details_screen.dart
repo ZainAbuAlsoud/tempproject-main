@@ -79,6 +79,8 @@ class DetailsScreen extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) => ActivityDetail(
                                           tag: '',
+                                          dat:dat,
+                                          nnum:1,
                                         )));
                           },
                         ),

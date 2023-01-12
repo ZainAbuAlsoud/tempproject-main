@@ -1317,13 +1317,14 @@ class _DetailsPageState extends State<DetailsPage> {
                       backgroundColor: Color(0xFF7A9BEE),
                       onPressed: () {
                         AuthService()
-                            .checkDIET(widget.dat.split('-')[1])
+                            .checkDIET(widget.dat.split('-')[1],false, false, false, false, false, false, '1')
                             .then((val) {
-                          if (val.data['success'] == false) {
+                          print(val.data['msg']);
+                          if (val.data['msg'] == 'User not found') {
                             AuthService().addDiet(widget.dat.split('-')[1],
                                 false, false, false, false, false, false, '1');
-                          } else if (val.data['success'] == true) {
-                              Fluttertoast.showToast(
+                          } else if (val.data['msg'] == 'User found') {
+                            Fluttertoast.showToast(
                                 msg: 'You can' +
                                     "'" +
                                     't choose this type until 30 days',
@@ -1334,12 +1335,14 @@ class _DetailsPageState extends State<DetailsPage> {
                                 fontSize: 16);
                           }
                         });
-                        AuthService().diet(widget.dat.split('-')[1]).then((val) {
+                        AuthService()
+                            .diet(widget.dat.split('-')[1])
+                            .then((val) {
                           if (widget.foodName == 'Keto' &&
                               (val.data['msg'] == '1' ||
                                   val.data['msg'] == '2')) {
-                            AuthService().updateDIET(
-                                widget.dat.split('-')[1],'1', true, false, false, false, false, false);
+                            AuthService().updateDIET(widget.dat.split('-')[1],
+                                '1', true, false, false, false, false, false);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -1349,8 +1352,8 @@ class _DetailsPageState extends State<DetailsPage> {
                           } else if (widget.foodName == 'Vegetarian' &&
                               (val.data['msg'] == '1' ||
                                   val.data['msg'] == '4')) {
-                            AuthService().updateDIET(
-                                widget.dat.split('-')[1],'1', false, false, true, false, false, false);
+                            AuthService().updateDIET(widget.dat.split('-')[1],
+                                '1', false, false, true, false, false, false);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -1360,8 +1363,8 @@ class _DetailsPageState extends State<DetailsPage> {
                           } else if (widget.foodName == 'Paleo' &&
                               (val.data['msg'] == '1' ||
                                   val.data['msg'] == '3')) {
-                            AuthService().updateDIET(
-                                widget.dat.split('-')[1],'1', false, true, false, false, false, false);
+                            AuthService().updateDIET(widget.dat.split('-')[1],
+                                '1', false, true, false, false, false, false);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -1371,8 +1374,8 @@ class _DetailsPageState extends State<DetailsPage> {
                           } else if (widget.foodName == 'Raw' &&
                               (val.data['msg'] == '1' ||
                                   val.data['msg'] == '5')) {
-                            AuthService().updateDIET(
-                                widget.dat.split('-')[1],'1', false, false, false, true, false, false);
+                            AuthService().updateDIET(widget.dat.split('-')[1],
+                                '1', false, false, false, true, false, false);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -1382,8 +1385,8 @@ class _DetailsPageState extends State<DetailsPage> {
                           } else if (widget.foodName == 'Low Carb' &&
                               (val.data['msg'] == '1' ||
                                   val.data['msg'] == '6')) {
-                            AuthService().updateDIET(
-                                widget.dat.split('-')[1],'1', false, false, false, false, true, false);
+                            AuthService().updateDIET(widget.dat.split('-')[1],
+                                '1', false, false, false, false, true, false);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -1393,8 +1396,8 @@ class _DetailsPageState extends State<DetailsPage> {
                           } else if (widget.foodName == 'No Sugar' &&
                               (val.data['msg'] == '1' ||
                                   val.data['msg'] == '7')) {
-                            AuthService().updateDIET(
-                                widget.dat.split('-')[1],'1', false, false, false, false, false, true);
+                            AuthService().updateDIET(widget.dat.split('-')[1],
+                                '1', false, false, false, false, false, true);
                             Navigator.push(
                               context,
                               MaterialPageRoute(

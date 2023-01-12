@@ -225,7 +225,7 @@ class _DashboardState extends State<Dashboard> {
                   child: Column(
                     children: [
                       Text(
-                        "Vetal Signs",
+                        "Vital Signs",
                         style: TextStyle(
                           fontSize: 30,
                           fontFamily: 'Nunito',
