@@ -201,7 +201,7 @@ class _PortraitState extends State<Portrait> {
                       padding: const EdgeInsets.only(left: 10.0),
                       // padding: const EdgeInsets.only(bottom: 10.0),
                       child: Text(
-                        'Next: ' + widget.da[++c == 40 ? 35 : c].name,
+                        'Next: ' + widget.da[++c == 20 ? 15 : c].name,
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.w900,

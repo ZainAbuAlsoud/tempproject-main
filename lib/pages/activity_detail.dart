@@ -43,13 +43,13 @@ class ActivityDetail extends StatefulWidget {
 class _ActivityDetailState extends State<ActivityDetail> {
   // late Map<String, dynamic> valueMap4;
 
-  List<exModel> myAllDaea4 = [];
+  // List<exModel> myAllDaea4 = [];
 
   // int m4 = 0;
   _initData() async {
     // List<exModel> myAllDaea4 = widget.da;
     level = widget.level;
-    print(myAllDaea4);
+    // print(myAllDaea4);
     //   var response4 = await http.get(
     //     Uri.parse("http://192.168.1.76:4000/getNormal"),
     //   );
@@ -225,8 +225,8 @@ class _ActivityDetailState extends State<ActivityDetail> {
                                       (BuildContext context, int index) {
                                     return GestureDetector(
                                         child: NextStep(
-                                      image: myAllDaea4[index + 5].video,
-                                      title: myAllDaea4[index + 5].name,
+                                      image: widget.da[index + 5].video,
+                                      title: widget.da[index + 5].name,
                                       seconds: 40,
                                     ));
                                   }),
@@ -275,7 +275,7 @@ class _ActivityDetailState extends State<ActivityDetail> {
                 return ActivityTimer(
                     level: level,
                     v: Newvideo,
-                    da: myAllDaea4,
+                    da: widget.da,
                     nnum: widget.nnum);
               }),
             );

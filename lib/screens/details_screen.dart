@@ -202,7 +202,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       builder: (context) => ActivityOver(
                                           tag: '',
                                           dat: widget.dat,
-                                          nnum: 1,
+                                          nnum: 8,
                                           da: myAllDaea4,
                                           level: level)));
                             } else if (level == 'Underweight') {

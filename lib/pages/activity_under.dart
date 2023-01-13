@@ -44,13 +44,13 @@ class ActivityUnder extends StatefulWidget {
 class _ActivityUnderState extends State<ActivityUnder> {
   // late Map<String, dynamic> valueMap4;
 
-  List<exModel> myAllDaea4 = [];
+  // List<exModel> myAllDaea4 = [];
 
   // int m4 = 0;
   _initData() async {
     // List<exModel> myAllDaea4 = widget.da;
     level = widget.level;
-    print(myAllDaea4);
+    // print(myAllDaea4);
     //   var response4 = await http.get(
     //     Uri.parse("http://192.168.1.76:4000/getNormal"),
     //   );
@@ -214,8 +214,8 @@ class _ActivityUnderState extends State<ActivityUnder> {
                                       (BuildContext context, int index) {
                                     return GestureDetector(
                                         child: NextStep(
-                                      image: myAllDaea4[index].video,
-                                      title: myAllDaea4[index].name,
+                                      image: widget.da[index].video,
+                                      title: widget.da[index].name,
                                       seconds: 40,
                                     ));
                                   }),
@@ -229,13 +229,13 @@ class _ActivityUnderState extends State<ActivityUnder> {
                                       (BuildContext context, int index) {
                                     return GestureDetector(
                                         child: NextStep(
-                                      image: myAllDaea4[index + 5].video,
-                                      title: myAllDaea4[index + 5].name,
+                                      image: widget.da[index + 5].video,
+                                      title: widget.da[index + 5].name,
                                       seconds: 40,
                                     ));
                                   }),
 
-                            if (level == '‘Underweight' &&
+                            if (level == 'Underweight' &&
                                 widget.nnum %4==3)
                               ListView.builder(
                                   shrinkWrap: true,
@@ -244,8 +244,8 @@ class _ActivityUnderState extends State<ActivityUnder> {
                                       (BuildContext context, int index) {
                                     return GestureDetector(
                                         child: NextStep(
-                                      image: myAllDaea4[index + 10].video,
-                                      title: myAllDaea4[index + 10].name,
+                                      image: widget.da[index + 10].video,
+                                      title: widget.da[index + 10].name,
                                       seconds: 40,
                                     ));
                                   }),
@@ -259,8 +259,8 @@ class _ActivityUnderState extends State<ActivityUnder> {
                                       (BuildContext context, int index) {
                                     return GestureDetector(
                                         child: NextStep(
-                                      image: myAllDaea4[index + 15].video,
-                                      title: myAllDaea4[index + 15].name,
+                                      image: widget.da[index + 15].video,
+                                      title: widget.da[index + 15].name,
                                       seconds: 40,
                                     ));
                                   }),
@@ -308,7 +308,7 @@ class _ActivityUnderState extends State<ActivityUnder> {
                 return UnderTimer(
                     level: level,
                     v: Newvideo,
-                    da: myAllDaea4,
+                    da: widget.da,
                     nnum: widget.nnum);
               }),
             );
