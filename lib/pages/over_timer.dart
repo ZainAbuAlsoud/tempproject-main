@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
-//import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 
 import '../models/exModel.dart';
@@ -17,13 +16,13 @@ String Newdesc = " ";
 int i = 0;
 int c = i;
 
-class ActivityTimer extends StatefulWidget {
+class OverTimer extends StatefulWidget {
   final String level;
   final String v;
   List<exModel> da = [];
   final int nnum;
 
-  ActivityTimer(
+  OverTimer(
       {
       //   required this.exercise,
       required this.level,
@@ -32,14 +31,11 @@ class ActivityTimer extends StatefulWidget {
       required this.nnum});
 
   @override
-  State<ActivityTimer> createState() => _ActivityTimerState();
+  State<OverTimer> createState() => _OverTimerState();
 }
 
-class _ActivityTimerState extends State<ActivityTimer> {
-
+class _OverTimerState extends State<OverTimer> {
   final String tag = 'imageHeader';
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +47,6 @@ class _ActivityTimerState extends State<ActivityTimer> {
             v: widget.v,
             da: widget.da,
             nnum: widget.nnum),
-
       ),
     );
   }
@@ -78,13 +73,32 @@ class Portrait extends StatefulWidget {
 class _PortraitState extends State<Portrait> {
   @override
   void initState() {
-    if (widget.nnum % 2 == 0) {
-      i = 5;
-      c = i;
-    } else {
+    if (widget.nnum %8==1) {
       i = 0;
       c = i;
+    } else if (widget.nnum %8==2) {
+      i = 5;
+      c = i;
+    } else if (widget.nnum %8==3) {
+      i = 10;
+      c = i;
+    } else if (widget.nnum %8==4) {
+      i = 15;
+      c = i;
+    } else if (widget.nnum %8==5) {
+      i = 20;
+      c = i;
+    } else if (widget.nnum %8==6) {
+      i = 25;
+      c = i;
+    } else if (widget.nnum %8==7) {
+      i = 30;
+      c = i;
+    } else if (widget.nnum %8==0) {
+      i = 35;
+      c = i;
     }
+
     super.initState();
   }
 
@@ -199,9 +213,7 @@ class _PortraitState extends State<Portrait> {
                       padding: const EdgeInsets.only(left: 10.0),
                       // padding: const EdgeInsets.only(bottom: 10.0),
                       child: Text(
-                        
-                        'Next: ' + widget.da[++c == 10  ? 5 : c].name,
-                        
+                        'Next: ' + widget.da[++c == 20 ? 15 : c].name,
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.w900,
@@ -299,13 +311,32 @@ class _PortraitState extends State<Portrait> {
                                 setState(() {
                                   _controller.restart();
                                   i++;
-                                  if (widget.nnum % 2 == 1) {
+                                  if (widget.nnum %8==1) {
                                     if (i == 5) i = 0;
                                     if (c == 5) c = 0;
-                                  } else {
+                                  } else if (widget.nnum %8==2) {
                                     if (i == 10) i = 5;
                                     if (c == 10) c = 5;
+                                  } else if (widget.nnum %8==3) {
+                                    if (i == 15) i = 10;
+                                    if (c == 15) c = 10;
+                                  } else if (widget.nnum %8==4) {
+                                    if (i == 20) i = 15;
+                                    if (c == 20) c = 15;
+                                  } else if (widget.nnum %8==5) {
+                                    if (i == 25) i = 20;
+                                    if (c == 25) c = 20;
+                                  } else if (widget.nnum %8==6) {
+                                    if (i == 30) i = 25;
+                                    if (c == 30) c = 25;
+                                  } else if (widget.nnum %8==7) {
+                                    if (i == 35) i = 30;
+                                    if (c == 35) c = 30;
+                                  } else if (widget.nnum %8==0) {
+                                    if (i == 40) i = 35;
+                                    if (c == 40) c = 35;
                                   }
+                                  
                                 });
                               }),
                               child: Text('Next'),
@@ -330,4 +361,3 @@ class _PortraitState extends State<Portrait> {
     );
   }
 }
-

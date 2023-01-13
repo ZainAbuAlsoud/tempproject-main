@@ -1,16 +1,16 @@
 // import 'package:timer/components/next_step.dart';
 // import 'package:timer/models/exercise.dart';
-import 'dart:convert';
-import 'dart:math';
+// import 'dart:convert';
+// import 'dart:math';
 
-import 'package:tempproject/pages/activity_timer.dart';
+// import 'package:tempproject/pages/activity_timer.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 
 import '../models/exModel.dart';
 import 'next_step.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+// import 'package:flutter_spinkit/flutter_spinkit.dart';
+// import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'over_timer.dart';
 
@@ -20,14 +20,14 @@ String Newvideo = " ";
 String Newdesc = " ";
 String level = "";
 
-class ActivityDetail extends StatefulWidget {
+class ActivityOver extends StatefulWidget {
   final String tag;
   final String dat;
   final int nnum;
   List<exModel> da = [];
   final String level;
 
-  ActivityDetail(
+  ActivityOver(
       {
       //   required this.exercise,
       required this.tag,
@@ -37,10 +37,10 @@ class ActivityDetail extends StatefulWidget {
       required this.level});
 
   @override
-  State<ActivityDetail> createState() => _ActivityDetailState();
+  State<ActivityOver> createState() => _ActivityOverState();
 }
 
-class _ActivityDetailState extends State<ActivityDetail> {
+class _ActivityOverState extends State<ActivityOver> {
   // late Map<String, dynamic> valueMap4;
 
   List<exModel> myAllDaea4 = [];
@@ -204,7 +204,8 @@ class _ActivityDetailState extends State<ActivityDetail> {
                         margin: EdgeInsets.only(top: 15.0),
                         child: Column(
                           children: <Widget>[
-                            if (level == 'Normal' && widget.nnum % 2 == 1)
+                            if (level == 'Overweight' &&
+                                widget.nnum %8 ==1)
                               ListView.builder(
                                   shrinkWrap: true,
                                   itemCount: 5,
@@ -212,12 +213,14 @@ class _ActivityDetailState extends State<ActivityDetail> {
                                       (BuildContext context, int index) {
                                     return GestureDetector(
                                         child: NextStep(
-                                      image: widget.da[index].video,
-                                      title: widget.da[index].name,
-                                      seconds: 50,
+                                      image: myAllDaea4[index].video,
+                                      title: myAllDaea4[index].name,
+                                      seconds: 40,
                                     ));
                                   }),
-                            if (level == 'Normal' && widget.nnum % 2 == 0)
+
+                            if (level == 'Overweight' &&
+                               widget.nnum %8 ==2)
                               ListView.builder(
                                   shrinkWrap: true,
                                   itemCount: 5,
@@ -230,8 +233,97 @@ class _ActivityDetailState extends State<ActivityDetail> {
                                       seconds: 40,
                                     ));
                                   }),
-                          
-                         
+
+                            if (level == 'Overweight' &&
+                                widget.nnum %8 ==3)
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: 5,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return GestureDetector(
+                                        child: NextStep(
+                                      image: myAllDaea4[index + 10].video,
+                                      title: myAllDaea4[index + 10].name,
+                                      seconds: 40,
+                                    ));
+                                  }),
+
+                            if (level == 'Overweight' &&
+                                widget.nnum %8 ==4)
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: 5,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return GestureDetector(
+                                        child: NextStep(
+                                      image: myAllDaea4[index + 15].video,
+                                      title: myAllDaea4[index + 15].name,
+                                      seconds: 40,
+                                    ));
+                                  }),
+
+                            if (level == 'Overweight' &&
+                                widget.nnum %8 ==5)
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: 5,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return GestureDetector(
+                                        child: NextStep(
+                                      image: myAllDaea4[index + 20].video,
+                                      title: myAllDaea4[index + 20].name,
+                                      seconds: 40,
+                                    ));
+                                  }),
+
+                            if (level == 'Overweight' &&
+                                widget.nnum %8 ==6)
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: 5,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return GestureDetector(
+                                        child: NextStep(
+                                      image: myAllDaea4[index + 25].video,
+                                      title: myAllDaea4[index + 25].name,
+                                      seconds: 40,
+                                    ));
+                                  }),
+
+                            if (level == 'Overweight' &&
+                                widget.nnum %8 ==7)
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: 5,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return GestureDetector(
+                                        child: NextStep(
+                                      image: myAllDaea4[index + 30].video,
+                                      title: myAllDaea4[index + 30].name,
+                                      seconds: 40,
+                                    ));
+                                  }),
+
+                            if (level == 'Overweight' &&
+                                widget.nnum %8 ==0)
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: 5,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return GestureDetector(
+                                        child: NextStep(
+                                      image: myAllDaea4[index + 35].video,
+                                      title: myAllDaea4[index + 35].name,
+                                      seconds: 40,
+                                    ));
+                                  }),
+                            
                           ],
                         ),
                       ),
@@ -268,19 +360,16 @@ class _ActivityDetailState extends State<ActivityDetail> {
           ),
         ),
         onTap: () {
-          
             Navigator.push(
               context,
               MaterialPageRoute(builder: (_) {
-                return ActivityTimer(
+                return OverTimer(
                     level: level,
                     v: Newvideo,
                     da: myAllDaea4,
                     nnum: widget.nnum);
               }),
             );
-
-        
         },
       ),
     );

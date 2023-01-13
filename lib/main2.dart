@@ -121,7 +121,8 @@ class HomeScreen extends StatelessWidget {
                             ),
                             CategoryCard(
                               title: "Water Tracker",
-                              svgSrc: "assets/icons/water-svgrepo-com.svg",
+                              svgSrc:
+                                  "assets/icons/water-droplet-svgrepo-com.svg",
                               dat: dat,
                               // press: () {},
                             ),

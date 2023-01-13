@@ -1,18 +1,129 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/svg.dart';
 
 import '../constants.dart';
+import '../models/exModel.dart';
 import '../pages/activity_detail.dart';
+import '../pages/activity_over.dart';
 import '../pages/activity_timer.dart';
+import '../pages/activity_under.dart';
 import '../wedgits/bottom_nav_bar.dart';
+import 'package:http/http.dart' as http;
 
-class DetailsScreen extends StatelessWidget {
+double bmi1score = 0;
+String Newname = " ";
+String Newvideo = " ";
+String Newdesc = " ";
+String level = "";
+
+class DetailsScreen extends StatefulWidget {
   final String dat;
   const DetailsScreen({
     super.key,
     required this.dat,
   });
+
+  @override
+  State<DetailsScreen> createState() => _DetailsScreenState();
+}
+
+class _DetailsScreenState extends State<DetailsScreen> {
+  late Map<String, dynamic> valueMap4;
+
+  List<exModel> myAllDaea4 = [];
+
+  int m4 = 0;
+  _initData() async {
+    if (level == 'Normal') {
+      var response4 = await http.get(
+        Uri.parse("http://192.168.1.76:4000/getNormal"),
+      );
+
+      String jsonsDataString4 = response4.body.toString();
+      valueMap4 = json.decode(response4.body);
+      List<dynamic> data4 = valueMap4["msg"];
+
+      for (var info4 in data4) {
+        myAllDaea4.add(exModel(info4["name"], info4["video"], info4["desc"]));
+        Newname = info4['name'];
+        Newvideo = info4['video'];
+        Newdesc = info4['desc'];
+        m4 = myAllDaea4.length;
+        setState(() {
+          Newname = info4['name'];
+          Newvideo = info4['video'];
+          Newdesc = info4['desc'];
+        });
+        print(Newvideo.split('assets')[1]);
+      }
+    } else if (level == 'Overweight') {
+      var response4 = await http.get(
+        Uri.parse("http://192.168.1.76:4000/getOver"),
+      );
+
+      String jsonsDataString4 = response4.body.toString();
+      valueMap4 = json.decode(response4.body);
+      List<dynamic> data4 = valueMap4["msg"];
+
+      for (var info4 in data4) {
+        myAllDaea4.add(exModel(info4["name"], info4["video"], info4["desc"]));
+        Newname = info4['name'];
+        Newvideo = info4['video'];
+        Newdesc = info4['desc'];
+        m4 = myAllDaea4.length;
+        setState(() {
+          Newname = info4['name'];
+          Newvideo = info4['video'];
+          Newdesc = info4['desc'];
+        });
+        print(Newvideo.split('assets')[1]);
+      }
+    } else if (level == 'Underweight') {
+      var response4 = await http.get(
+        Uri.parse("http://192.168.1.76:4000/getUnder"),
+      );
+
+      String jsonsDataString4 = response4.body.toString();
+      valueMap4 = json.decode(response4.body);
+      List<dynamic> data4 = valueMap4["msg"];
+
+      for (var info4 in data4) {
+        myAllDaea4.add(exModel(info4["name"], info4["video"], info4["desc"]));
+        Newname = info4['name'];
+        Newvideo = info4['video'];
+        Newdesc = info4['desc'];
+        m4 = myAllDaea4.length;
+        setState(() {
+          Newname = info4['name'];
+          Newvideo = info4['video'];
+          Newdesc = info4['desc'];
+        });
+        print(Newvideo.split('assets')[1]);
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    setState(() {
+      bmi1score = double.parse(widget.dat.split('-')[2]) /
+          pow(int.parse(widget.dat.split('-')[3]) / 100, 2);
+      if (bmi1score >= 25) {
+        level = "Overweight";
+      } else if (bmi1score >= 18.5) {
+        level = "Normal";
+      } else if (bmi1score < 18.5) {
+        level = "Underweight";
+      }
+
+      _initData();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -74,14 +185,37 @@ class DetailsScreen extends StatelessWidget {
                           seassionNum: 1,
                           isDone: true,
                           press: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ActivityDetail(
+                            if (level == 'Normal') {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
                                           tag: '',
-                                          dat:dat,
-                                          nnum:1,
-                                        )));
+                                          dat: widget.dat,
+                                          nnum: 1,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight') {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 1,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight') {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 1,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
                           },
                         ),
                         SeassionCard(
