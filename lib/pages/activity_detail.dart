@@ -277,7 +277,7 @@ class _ActivityDetailState extends State<ActivityDetail> {
             context,
             MaterialPageRoute(builder: (_) {
               return ActivityTimer(
-                  level:level,v:Newvideo,da:myAllDaea4,nnum:widget.nnum);
+                  level: level, v: Newvideo, da: myAllDaea4, nnum: widget.nnum);
             }),
           );
         },

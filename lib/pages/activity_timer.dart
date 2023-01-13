@@ -15,6 +15,7 @@ String Newvideo = " ";
 String Newdesc = " ";
 
 int i = 0;
+int c = i;
 
 class ActivityTimer extends StatefulWidget {
   final String level;
@@ -120,6 +121,13 @@ class _PortraitState extends State<Portrait> {
   @override
   void initState() {
     // print(widget.da[0].video);
+    if (widget.nnum % 2 == 0) {
+      i = 5;
+      c = i;
+    } else {
+      i = 0;
+      c = i;
+    }
     super.initState();
   }
 
@@ -217,12 +225,13 @@ class _PortraitState extends State<Portrait> {
                           },
                         ),
                         SizedBox(
-                          width: 90,
+                          width: 50,
                         ),
                         Text(
                           widget.da[i].name,
+                          textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 28.0,
+                            fontSize: 22.0,
                             fontWeight: FontWeight.w900,
                             color: Colors.grey[700],
                           ),
@@ -230,9 +239,12 @@ class _PortraitState extends State<Portrait> {
                       ],
                     ),
                     Container(
+                      padding: const EdgeInsets.only(left: 10.0),
                       // padding: const EdgeInsets.only(bottom: 10.0),
                       child: Text(
-                        'Next: ' + widget.da[i++].name,
+                        
+                        'Next: ' + widget.da[++c == 10  ? 5 : c].name,
+                        
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.w900,
@@ -325,9 +337,18 @@ class _PortraitState extends State<Portrait> {
                             height: 45,
                             child: ElevatedButton(
                               onPressed: (() {
+                                print('i ' + i.toString());
+                                print('c ' + c.toString());
                                 setState(() {
-                                  
+                                  _controller.restart();
                                   i++;
+                                  if (widget.nnum % 2 == 1) {
+                                    if (i == 5) i = 0;
+                                    if (c == 5) c = 0;
+                                  } else {
+                                    if (i == 10) i = 5;
+                                    if (c == 10) c = 5;
+                                  }
                                 });
                               }),
                               child: Text('Next'),
