@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/svg.dart';
-
+import 'dart:async';
 import '../constants.dart';
 import '../models/exModel.dart';
 import '../pages/activity_detail.dart';
@@ -13,12 +13,14 @@ import '../pages/activity_timer.dart';
 import '../pages/activity_under.dart';
 import '../wedgits/bottom_nav_bar.dart';
 import 'package:http/http.dart' as http;
+import 'package:timezone/data/latest.dart' as tz;
 
 double bmi1score = 0;
 String Newname = " ";
 String Newvideo = " ";
 String Newdesc = " ";
 String level = "";
+int counter = 1;
 
 class DetailsScreen extends StatefulWidget {
   final String dat;
@@ -32,6 +34,7 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
+  late Timer timer;
   late Map<String, dynamic> valueMap4;
 
   List<exModel> myAllDaea4 = [];
@@ -121,6 +124,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
       }
 
       _initData();
+      tz.initializeTimeZones();
+      if (counter < 30)
+        timer = Timer.periodic(Duration(minutes: 1), (Timer t) => counter++);
+
+      if (counter == 30) counter = 0;
     });
   }
 
@@ -183,9 +191,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       children: <Widget>[
                         SeassionCard(
                           seassionNum: 1,
-                          isDone: true,
+                          isDone: (counter == 1 ? true : false),
                           press: () {
-                            if (level == 'Normal') {
+                            if (level == 'Normal' && counter == 1) {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -195,17 +203,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           nnum: 1,
                                           da: myAllDaea4,
                                           level: level)));
-                            } else if (level == 'Overweight') {
+                            } else if (level == 'Overweight' && counter == 1) {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => ActivityOver(
                                           tag: '',
                                           dat: widget.dat,
-                                          nnum: 8,
+                                          nnum: 1,
                                           da: myAllDaea4,
                                           level: level)));
-                            } else if (level == 'Underweight') {
+                            } else if (level == 'Underweight' && counter == 1) {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -220,176 +228,1083 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ),
                         SeassionCard(
                           seassionNum: 2,
-                          press: () {},
+                          isDone: (counter == 2 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 2) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 2,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 2) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 2,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 2) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 2,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 3,
-                          press: () {},
+                          isDone: (counter == 3 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 3) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 3,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 3) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 3,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 3) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 3,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 4,
-                          press: () {},
+                          isDone: (counter == 4 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 4) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 4,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 4) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 4,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 4) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 4,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 5,
-                          press: () {},
+                          isDone: (counter == 5 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 5) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 5,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 5) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 5,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 5) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 5,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 6,
-                          press: () {},
+                          isDone: (counter == 6 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 6) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 6,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 6) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 6,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 6) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 6,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 7,
                           //isDone: true,
-                          press: () {},
+                          isDone: (counter == 7 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 7) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 7,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 7) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 7,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 7) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 7,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 8,
-                          press: () {},
+                          isDone: (counter == 8 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 8) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 8,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 8) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 8,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 8) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 8,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 9,
-                          press: () {},
+                          isDone: (counter == 9 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 9) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 9,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 9) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 9,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 9) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 9,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 10,
-                          press: () {},
+                          isDone: (counter == 10 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 10) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 10,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 10) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 10,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 10) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 10,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 11,
-                          press: () {},
+                          isDone: (counter == 11 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 11) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 11,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 11) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 11,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 11) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 11,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 12,
-                          press: () {},
+                          isDone: (counter == 12 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 12) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 12,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 12) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 12,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 12) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 12,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 13,
-                          // isDone: true,
-                          press: () {},
+                          isDone: (counter == 13 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 13) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 13,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 13) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 13,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 13) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 13,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 14,
-                          press: () {},
+                          isDone: (counter == 14 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 14) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 14,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 14) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 14,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 14) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 14,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 15,
-                          press: () {},
+                          isDone: (counter == 15 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 15) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 15,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 15) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 15,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 15) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 15,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 16,
-                          press: () {},
+                          isDone: (counter == 16 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 16) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 16,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 16) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 16,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 16) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 16,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 17,
-                          press: () {},
+                          isDone: (counter == 17 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 17) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 17,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 17) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 17,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 17) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 17,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 18,
-                          press: () {},
+                          isDone: (counter == 18 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 18) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 18,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 18) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 18,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 18) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 18,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 19,
                           // isDone: true,
-                          press: () {},
+                          isDone: (counter == 19 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 19) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 19,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 19) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 19,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 19) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 19,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 20,
-                          press: () {},
+                          isDone: (counter == 20 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 20) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 20,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 20) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 20,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 20) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 20,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 21,
-                          press: () {},
+                          isDone: (counter == 21 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 21) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 21,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 21) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 21,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 21) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 21,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 22,
-                          press: () {},
+                          isDone: (counter == 22 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 22) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 22,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 22) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 22,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 22) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 22,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 23,
-                          press: () {},
+                          isDone: (counter == 23 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 23) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 23,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 23) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 23,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 23) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 23,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 24,
-                          press: () {},
+                          isDone: (counter == 24 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 24) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 24,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 24) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 24,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 24) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 24,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 25,
-                          //isDone: true,
-                          press: () {},
+                          isDone: (counter == 25 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 25) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 25,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 25) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 25,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 25) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 25,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 26,
-                          press: () {},
+                          isDone: (counter == 26 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 26) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 26,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 26) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 26,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 26) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 26,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 27,
-                          press: () {},
+                           isDone: (counter == 27 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 27) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 27,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 27) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 27,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 27) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 27,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 28,
-                          press: () {},
+                           isDone: (counter == 28 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 28) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 28,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 28) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 28,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 28) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 28,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 29,
-                          press: () {},
+                           isDone: (counter == 29 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 29) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 29,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 29) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 29,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 29) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 29,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                         SeassionCard(
                           seassionNum: 30,
-                          press: () {},
+                           isDone: (counter == 30 ? true : false),
+                          press: () {
+                            if (level == 'Normal' && counter == 30) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 30,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Overweight' && counter == 30) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityOver(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 30,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            } else if (level == 'Underweight' && counter == 30) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityUnder(
+                                          tag: '',
+                                          dat: widget.dat,
+                                          nnum: 30,
+                                          da: myAllDaea4,
+                                          level: level)));
+                            }
+                          },
                         ),
                       ],
                     ),
                     SizedBox(height: 10),
-                    // Text(
-                    //   "Meditation",
-                    //   style: Theme.of(context)
-                    //       .textTheme
-                    //       .titleMedium
-                    //       ?.copyWith(fontWeight: FontWeight.bold),
-                    // ),
-                    // Container(
-                    //   margin: EdgeInsets.symmetric(vertical: 20),
-                    //   padding: EdgeInsets.all(10),
-                    //   height: 90,
-                    //   decoration: BoxDecoration(
-                    //     color: Colors.white,
-                    //     borderRadius: BorderRadius.circular(13),
-                    //     boxShadow: [
-                    //       BoxShadow(
-                    //         offset: Offset(0, 17),
-                    //         blurRadius: 23,
-                    //         spreadRadius: -13,
-                    //         color: kShadowColor,
-                    //       ),
-                    //     ],
-                    //   ),
-                    //   child: Row(
-                    //     children: <Widget>[
-                    //       SvgPicture.asset(
-                    //         "assets/icons/Meditation_women_small.svg",
-                    //       ),
-                    //       SizedBox(width: 20),
-                    //       Expanded(
-                    //         child: Column(
-                    //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //           crossAxisAlignment: CrossAxisAlignment.start,
-                    //           children: <Widget>[
-                    //             Text(
-                    //               "Basic 2",
-                    //               style: Theme.of(context).textTheme.subtitle1,
-                    //             ),
-                    //             Text("Start your deepen you practice")
-                    //           ],
-                    //         ),
-                    //       ),
-                    //       Padding(
-                    //         padding: EdgeInsets.all(10),
-                    //         child: SvgPicture.asset("assets/icons/Lock.svg"),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // )
+                   
                   ],
                 ),
               ),
@@ -406,7 +1321,6 @@ class SeassionCard extends StatelessWidget {
   final bool isDone;
   final Function press;
   const SeassionCard({
-    //required Key key,
     super.key,
     required this.seassionNum,
     this.isDone = false,
@@ -420,8 +1334,7 @@ class SeassionCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(13),
         child: Container(
           width: constraint.maxWidth / 2 -
-              10, // constraint.maxWidth provide us the available with for this widget
-          // padding: EdgeInsets.all(16),
+              10, 
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(13),

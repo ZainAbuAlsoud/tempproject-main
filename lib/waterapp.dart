@@ -1,12 +1,20 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:tempproject/services/authservice.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
+import 'models/waterModel.dart';
 import 'notificationservice.dart';
+import 'package:http/http.dart' as http;
+
+String number = '0';
+String Newnam = " ";
+String Newper = " ";
 
 class water extends StatelessWidget {
   // This widget is the root of your application.
@@ -18,29 +26,77 @@ class water extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      
       title: 'Water tracker',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // primarySwatch: Color.fromARGB(a, r, g, b),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(),
+      home: MyHomePage(dat: dat),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  final String dat;
+  const MyHomePage({
+    required this.dat,
+  });
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late Map<String, dynamic> valueMapW;
+
+  List<mongoWaterModel> myAllDaeaW = [];
   double per = 0;
   late Timer timer;
+
+  _initData() async {
+    var responsew = await http.post(
+        Uri.parse("http://192.168.1.76:4000/checkWater"),
+        body: {'name': widget.dat.split('-')[1]});
+
+    valueMapW = json.decode(responsew.body);
+    String dataw = valueMapW["msg"];
+
+    myAllDaeaW.add(mongoWaterModel(widget.dat.split('-')[1], valueMapW["msg"]));
+    Newnam = widget.dat.split('-')[1];
+    Newper = valueMapW["msg"];
+
+    setState(() {
+      Newnam = widget.dat.split('-')[1];
+      Newper = valueMapW["msg"];
+      if (Newper != '0') {
+        per = double.parse(Newper);
+        print(valueMapW["msg"]);
+      } else {
+        AuthService().addWater(widget.dat.split('-')[1], '0').then((val) {});
+        per = double.parse(Newper);
+        print(valueMapW["msg"]);
+      }
+    });
+
+    // AuthService().checkWater(widget.dat.split('-')[1]).then((val) {
+    //   if (val.data['success']) {
+    //     per = double.parse(val.data['msg']);
+    //     number = (per * 100).toStringAsFixed(2);
+    //     print(number);
+    //   } else {
+    //     AuthService().addWater(widget.dat.split('-')[1], '0').then((val) {});
+    //     per = double.parse(val.data['msg']);
+    //     number = (per * 100).toStringAsFixed(2);
+    //   }
+    // });
+  }
+
   @override
   void initState() {
-    super.initState();
+    // super.initState();
+    setState(() {
+      _initData();
+    });
     WidgetsFlutterBinding.ensureInitialized();
 
 // to initialize the notificationservice.
@@ -59,7 +115,8 @@ class _MyHomePageState extends State<MyHomePage> {
               1, "Water Reminder", "Dont forget to drink water"));
     }
     per2 = per * 100;
-    String number = per2.toStringAsFixed(2);
+    number = per2.toStringAsFixed(2);
+
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
       appBar: new AppBar(
@@ -90,6 +147,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   InkWell(
                       onTap: () {
                         setState(() {
+                          AuthService()
+                              .updateWater(widget.dat.split('-')[1], '0')
+                              .then((val) {});
                           per = 0;
                           tex = " ";
                         });
@@ -139,9 +199,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         setState(() {
                           if (per > .85) {
                             per = 1;
+                            AuthService()
+                                .updateWater(
+                                    widget.dat.split('-')[1], per.toString())
+                                .then((val) {});
                             tex = "Finished \nthe required\n quantity";
                           } else {
                             per = per + .06;
+                            AuthService()
+                                .updateWater(
+                                    widget.dat.split('-')[1], per.toString())
+                                .then((val) {});
                           }
                         });
                       },
@@ -175,9 +243,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         setState(() {
                           if (per > .85) {
                             per = 1;
+                            AuthService()
+                                .updateWater(
+                                    widget.dat.split('-')[1], per.toString())
+                                .then((val) {});
                             tex = "Finished \nthe required\n quantity";
                           } else {
                             per = per + .09;
+                            AuthService()
+                                .updateWater(
+                                    widget.dat.split('-')[1], per.toString())
+                                .then((val) {});
                           }
                         });
                       },
@@ -217,9 +293,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         setState(() {
                           if (per > .80) {
                             per = 1;
+                            AuthService()
+                                .updateWater(
+                                    widget.dat.split('-')[1], per.toString())
+                                .then((val) {});
                             tex = "Finished \nthe required\n quantity";
                           } else {
                             per = per + .2;
+                            AuthService()
+                                .updateWater(
+                                    widget.dat.split('-')[1], per.toString())
+                                .then((val) {});
                           }
                         });
                       },
@@ -252,9 +336,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         setState(() {
                           if (per > .7) {
                             per = 1;
+                            AuthService()
+                                .updateWater(
+                                    widget.dat.split('-')[1], per.toString())
+                                .then((val) {});
                             tex = "Finished \nthe required\n quantity";
                           } else {
                             per = per + .3;
+                            AuthService()
+                                .updateWater(
+                                    widget.dat.split('-')[1], per.toString())
+                                .then((val) {});
                           }
                         });
                       },

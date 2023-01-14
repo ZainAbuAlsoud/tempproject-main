@@ -7,7 +7,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'main2.dart';
 
 void main() {
-
   runApp(const MyApp());
 }
 
@@ -299,7 +298,7 @@ class _Loginpage extends State<Loginpage> {
                     child: FloatingActionButton.extended(
                       onPressed: () {
                         AuthService().login(email, password).then((val) {
-                          if (val.data['success'] || AuthService.aa1==true) {
+                          if (val.data['success'] || AuthService.aa1 == true) {
                             AuthService().getData(email).then((val) {
                               // arr = val.data['msg'];
 
@@ -318,7 +317,7 @@ class _Loginpage extends State<Loginpage> {
                                             dat: val.data['msg'],
                                           )));
                             });
-                          } else if(!val.data['success']) {
+                          } else if (!val.data['success']) {
                             Fluttertoast.showToast(
                                 msg: 'Enter all fields',
                                 toastLength: Toast.LENGTH_SHORT,

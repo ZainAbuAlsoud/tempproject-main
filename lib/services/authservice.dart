@@ -194,13 +194,7 @@ class AuthService {
           },
           options: Options(contentType: Headers.formUrlEncodedContentType));
     } on DioError catch (e) {
-      // Fluttertoast.showToast(
-      //     msg: e.response!.data['msg'],
-      //     toastLength: Toast.LENGTH_SHORT,
-      //     gravity: ToastGravity.BOTTOM,
-      //     backgroundColor: Color.fromARGB(255, 0, 0, 0),
-      //     textColor: Colors.white,
-      //     fontSize: 16);
+ 
     }
   }
 
@@ -287,5 +281,54 @@ class AuthService {
 
   getFat() async {
     return await dio.get('http://192.168.1.76:4000/getFats');
+  }
+
+    checkWater(name) async {
+    try {
+      return await dio.post('http://192.168.1.76:4000/checkWater',
+          data: {
+            "name": name,
+           
+          },
+          options: Options(contentType: Headers.formUrlEncodedContentType));
+    } on DioError catch (e) {
+ 
+    }
+  }
+
+    updateWater(name, percent) async {
+    try {
+      return await dio.post('http://192.168.1.76:4000/updateWater',
+          data: {
+            "name": name,
+            "percent": percent,
+            
+          },
+          options: Options(contentType: Headers.formUrlEncodedContentType));
+    } on DioError catch (e) {
+      Fluttertoast.showToast(
+          msg: e.response!.data['msg'],
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Color.fromARGB(255, 0, 0, 0),
+          textColor: Colors.white,
+          fontSize: 16);
+    }
+  }
+
+    addWater(name, percent) async {
+    try {
+      return await dio.post('http://192.168.1.76:4000/addWater',
+          data: {"name": name, "percent": percent},
+          options: Options(contentType: Headers.formUrlEncodedContentType));
+    } on DioError catch (e) {
+      Fluttertoast.showToast(
+          msg: e.response!.data['msg'],
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Color.fromARGB(255, 0, 0, 0),
+          textColor: Colors.white,
+          fontSize: 16);
+    }
   }
 }
