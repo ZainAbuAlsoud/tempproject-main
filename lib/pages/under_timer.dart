@@ -73,19 +73,19 @@ class Portrait extends StatefulWidget {
 class _PortraitState extends State<Portrait> {
   @override
   void initState() {
-    if (widget.nnum %4==1) {
+    if (widget.nnum % 4 == 1) {
       i = 0;
       c = i;
-    } else if (widget.nnum %4==2) {
+    } else if (widget.nnum % 4 == 2) {
       i = 5;
       c = i;
-    } else if (widget.nnum %4==3) {
+    } else if (widget.nnum % 4 == 3) {
       i = 10;
       c = i;
-    } else if (widget.nnum %4==0) {
+    } else if (widget.nnum % 4 == 0) {
       i = 15;
       c = i;
-    } 
+    }
 
     super.initState();
   }
@@ -299,20 +299,31 @@ class _PortraitState extends State<Portrait> {
                                 setState(() {
                                   _controller.restart();
                                   i++;
-                                  if (widget.nnum %4==1) {
-                                    if (i == 5) i = 0;
+                                  if (widget.nnum % 4 == 1) {
+                                    if (i == 5) {
+                                      i = 0;
+                                      Navigator.pop(context);
+                                    }
                                     if (c == 5) c = 0;
-                                  } else if (widget.nnum %4==2) {
-                                    if (i == 10) i = 5;
+                                  } else if (widget.nnum % 4 == 2) {
+                                    if (i == 10) {
+                                      i = 5;
+                                      Navigator.pop(context);
+                                    }
                                     if (c == 10) c = 5;
-                                  } else if (widget.nnum %4==3) {
-                                    if (i == 15) i = 10;
+                                  } else if (widget.nnum % 4 == 3) {
+                                    if (i == 15) {
+                                      i = 10;
+                                      Navigator.pop(context);
+                                    }
                                     if (c == 15) c = 10;
-                                  } else if (widget.nnum %4==0) {
-                                    if (i == 20) i = 15;
+                                  } else if (widget.nnum % 4 == 0) {
+                                    if (i == 20) {
+                                      i = 15;
+                                      Navigator.pop(context);
+                                    }
                                     if (c == 20) c = 15;
-                                  }  
-                                  
+                                  }
                                 });
                               }),
                               child: Text('Next'),

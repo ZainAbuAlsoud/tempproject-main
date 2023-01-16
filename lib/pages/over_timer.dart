@@ -211,7 +211,6 @@ class _PortraitState extends State<Portrait> {
                     ),
                     Container(
                       padding: const EdgeInsets.only(left: 10.0),
-                      // padding: const EdgeInsets.only(bottom: 10.0),
                       child: Text(
                         'Next: ' + widget.da[++c == 40 ? 35 : c].name,
                         style: TextStyle(
@@ -312,28 +311,52 @@ class _PortraitState extends State<Portrait> {
                                   _controller.restart();
                                   i++;
                                   if (widget.nnum % 8 == 1) {
-                                    if (i == 5) i = 0;
+                                    if (i == 5) {
+                                      i = 0;
+                                      Navigator.pop(context);
+                                    }
                                     if (c == 5) c = 0;
                                   } else if (widget.nnum % 8 == 2) {
-                                    if (i == 10) i = 5;
+                                    if (i == 10) {
+                                      i = 5;
+                                      Navigator.pop(context);
+                                    }
                                     if (c == 10) c = 5;
                                   } else if (widget.nnum % 8 == 3) {
-                                    if (i == 15) i = 10;
+                                    if (i == 15) {
+                                      i = 10;
+                                      Navigator.pop(context);
+                                    }
                                     if (c == 15) c = 10;
                                   } else if (widget.nnum % 8 == 4) {
-                                    if (i == 20) i = 15;
+                                    if (i == 20) {
+                                      i = 15;
+                                      Navigator.pop(context);
+                                    }
                                     if (c == 20) c = 15;
                                   } else if (widget.nnum % 8 == 5) {
-                                    if (i == 25) i = 20;
+                                    if (i == 25) {
+                                      i = 20;
+                                      Navigator.pop(context);
+                                    }
                                     if (c == 25) c = 20;
                                   } else if (widget.nnum % 8 == 6) {
-                                    if (i == 30) i = 25;
+                                    if (i == 30) {
+                                      i = 25;
+                                      Navigator.pop(context);
+                                    }
                                     if (c == 30) c = 25;
                                   } else if (widget.nnum % 8 == 7) {
-                                    if (i == 35) i = 30;
+                                    if (i == 35) {
+                                      i = 30;
+                                      Navigator.pop(context);
+                                    }
                                     if (c == 35) c = 30;
                                   } else if (widget.nnum % 8 == 0) {
-                                    if (i == 40) i = 35;
+                                    if (i == 40) {
+                                      i = 35;
+                                      Navigator.pop(context);
+                                    }
                                     if (c == 40) c = 35;
                                   }
                                 });

@@ -178,7 +178,7 @@ class AuthService {
     return await dio.get('http://192.168.1.76:4000/getDiet');
   }
 
-  checkDIET(email,num, keto, paleo, vegetarian, raw, carb, sugar) async {
+  checkDIET(email, num, keto, paleo, vegetarian, raw, carb, sugar) async {
     try {
       print(email);
       return await dio.post('http://192.168.1.76:4000/checkDiet',
@@ -193,9 +193,7 @@ class AuthService {
             "num": num
           },
           options: Options(contentType: Headers.formUrlEncodedContentType));
-    } on DioError catch (e) {
- 
-    }
+    } on DioError catch (e) {}
   }
 
   updateDIET(email, num, keto, paleo, vegetarian, raw, carb, sugar) async {
@@ -283,26 +281,129 @@ class AuthService {
     return await dio.get('http://192.168.1.76:4000/getFats');
   }
 
-    checkWater(name) async {
-    try {
-      return await dio.post('http://192.168.1.76:4000/checkWater',
-          data: {
-            "name": name,
-           
-          },
-          options: Options(contentType: Headers.formUrlEncodedContentType));
-    } on DioError catch (e) {
- 
-    }
-  }
 
-    updateWater(name, percent) async {
+
+  // updateNormal(name, fats, protein, calories) async {
+  //   try {
+  //     return await dio.post('http://192.168.1.76:4000/updatePaleo',
+  //         data: {
+  //           "name": name,
+  //           if(fats!=' ')
+  //           "fats": fats,
+  //           if(protein!=' ')
+  //           "protein": protein,
+  //           if(calories!=' ')
+  //           "calories": calories
+  //         },
+  //         options: Options(contentType: Headers.formUrlEncodedContentType));
+  //   } on DioError catch (e) {
+  //     Fluttertoast.showToast(
+  //         msg: e.response!.data['msg'],
+  //         toastLength: Toast.LENGTH_SHORT,
+  //         gravity: ToastGravity.BOTTOM,
+  //         backgroundColor: Color.fromARGB(255, 0, 0, 0),
+  //         textColor: Colors.white,
+  //         fontSize: 16);
+  //   }
+  // }
+
+
+  //   checkPaleoDel(name,fats, protein, calories) async {
+  //   try {
+  //     return await dio.post('http://192.168.1.76:4000/checkPaleo',
+  //         data: {
+  //           "name": name,
+  //         },
+  //         options: Options(contentType: Headers.formUrlEncodedContentType));
+  //   } on DioError catch (e) {
+  //     if (e.response!.data['msg'] == '0') {
+  //       Fluttertoast.showToast(
+  //           msg: 'This food not found',
+  //           toastLength: Toast.LENGTH_SHORT,
+  //           gravity: ToastGravity.BOTTOM,
+  //           backgroundColor: Color.fromARGB(255, 0, 0, 0),
+  //           textColor: Colors.white,
+  //           fontSize: 16);
+  //     } //not
+  //     else {
+  //       AuthService().DeletePaleo(name,fats, protein, calories).then((val) {});
+  //     } //exsist
+  //   }
+  // }
+
+  // DeletePaleo(name, fats, protein, calories) async {
+  //   try {
+  //     return await dio.post('http://192.168.1.76:4000/DeletePaleo',
+  //         data: {
+  //           "name": name,
+            
+  //         },
+  //         options: Options(contentType: Headers.formUrlEncodedContentType));
+  //   } on DioError catch (e) {
+  //     Fluttertoast.showToast(
+  //         msg: e.response!.data['msg'],
+  //         toastLength: Toast.LENGTH_SHORT,
+  //         gravity: ToastGravity.BOTTOM,
+  //         backgroundColor: Color.fromARGB(255, 0, 0, 0),
+  //         textColor: Colors.white,
+  //         fontSize: 16);
+  //   }
+  // }
+
+
+  //     checkPaleoAdd(name,fats, protein, calories) async {
+  //   try {
+  //     return await dio.post('http://192.168.1.76:4000/checkPaleo',
+  //         data: {
+  //           "name": name,
+  //         },
+  //         options: Options(contentType: Headers.formUrlEncodedContentType));
+  //   } on DioError catch (e) {
+  //     if (e.response!.data['msg'] == '0') {
+  //       AuthService().addPaleo(name,fats, protein, calories).then((val) {});
+  //     } //not
+  //     else {
+        
+  //       Fluttertoast.showToast(
+  //           msg: 'This food already exist',
+  //           toastLength: Toast.LENGTH_SHORT,
+  //           gravity: ToastGravity.BOTTOM,
+  //           backgroundColor: Color.fromARGB(255, 0, 0, 0),
+  //           textColor: Colors.white,
+  //           fontSize: 16);
+  //     } //exsist
+  //   }
+  // }
+
+  //   addPaleo(name,fats, protein, calories) async {
+  //   try {
+  //     return await dio.post('http://192.168.1.76:4000/addNewPaleo',
+  //         data: {
+  //           "name": name,
+  //           "weight": '100',
+  //           "fats": fats,
+  //           "protein": protein,
+  //           "calories": calories,
+           
+  //         },
+  //         options: Options(contentType: Headers.formUrlEncodedContentType));
+  //   } on DioError catch (e) {
+  //     Fluttertoast.showToast(
+  //         msg: e.response!.data['msg'],
+  //         toastLength: Toast.LENGTH_SHORT,
+  //         gravity: ToastGravity.BOTTOM,
+  //         backgroundColor: Color.fromARGB(255, 0, 0, 0),
+  //         textColor: Colors.white,
+  //         fontSize: 16);
+  //   }
+  // }
+
+  updateWater(name, percent) async {
     try {
       return await dio.post('http://192.168.1.76:4000/updateWater',
           data: {
             "name": name,
             "percent": percent,
-            
           },
           options: Options(contentType: Headers.formUrlEncodedContentType));
     } on DioError catch (e) {
@@ -316,7 +417,7 @@ class AuthService {
     }
   }
 
-    addWater(name, percent) async {
+  addWater(name, percent) async {
     try {
       return await dio.post('http://192.168.1.76:4000/addWater',
           data: {"name": name, "percent": percent},

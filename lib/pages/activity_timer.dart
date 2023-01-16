@@ -36,10 +36,7 @@ class ActivityTimer extends StatefulWidget {
 }
 
 class _ActivityTimerState extends State<ActivityTimer> {
-
   final String tag = 'imageHeader';
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +48,6 @@ class _ActivityTimerState extends State<ActivityTimer> {
             v: widget.v,
             da: widget.da,
             nnum: widget.nnum),
-
       ),
     );
   }
@@ -182,7 +178,7 @@ class _PortraitState extends State<Portrait> {
                           },
                         ),
                         SizedBox(
-                          width: 50,
+                          width: 20,
                         ),
                         Text(
                           widget.da[i].name,
@@ -199,9 +195,7 @@ class _PortraitState extends State<Portrait> {
                       padding: const EdgeInsets.only(left: 10.0),
                       // padding: const EdgeInsets.only(bottom: 10.0),
                       child: Text(
-                        
-                        'Next: ' + widget.da[++c == 10  ? 5 : c].name,
-                        
+                        'Next: ' + widget.da[++c == 10 ? 5 : c].name,
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.w900,
@@ -300,10 +294,17 @@ class _PortraitState extends State<Portrait> {
                                   _controller.restart();
                                   i++;
                                   if (widget.nnum % 2 == 1) {
-                                    if (i == 5) i = 0;
+                                    if (i == 5) {
+                                      i = 0;
+                                      Navigator.pop(context);
+                                    }
                                     if (c == 5) c = 0;
                                   } else {
-                                    if (i == 10) i = 5;
+                                    if (i == 10) {
+                                      i = 5;
+                                      Navigator.pop(context);
+                                    }
+                                    
                                     if (c == 10) c = 5;
                                   }
                                 });
@@ -330,4 +331,3 @@ class _PortraitState extends State<Portrait> {
     );
   }
 }
-

@@ -5,6 +5,7 @@ import 'package:tempproject/services/authservice.dart';
 
 import 'bmi/bmiCa.dart';
 import 'drawer_item.dart';
+import 'main.dart';
 import 'page3/mprofilepage.dart';
 import 'pages2/mainforprofile.dart';
 
@@ -52,13 +53,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                   name: 'My Account',
                   icon: Icons.account_box_rounded,
                   onPressed: () => onItemPressed(context, index: 1)),
-              SizedBox(
-                height: 30,
-              ),
-              DrawerItem(
-                  name: 'Statistics',
-                  icon: Icons.message_outlined,
-                  onPressed: () => onItemPressed(context, index: 2)),
+              
               SizedBox(
                 height: 30,
               ),
@@ -103,6 +98,15 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                     )));
         break;
 
+        case 5:
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>MyApp (
+                      
+                    )));
+        break;
+
         
     }
   }
@@ -111,7 +115,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     return Row(
       children: [
         CircleAvatar(
-          radius: 40,
+          radius: 30,
           backgroundImage: AssetImage("assets/images/yoga.png"),
         ),
         SizedBox(

@@ -126,7 +126,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
       _initData();
       tz.initializeTimeZones();
       if (counter < 30)
-        timer = Timer.periodic(Duration(minutes: 1), (Timer t) => counter++);
+        timer = Timer.periodic(Duration(hours: 24), (Timer t) => counter++);
 
       if (counter == 30) counter = 0;
     });
@@ -136,7 +136,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      bottomNavigationBar: BottomNavBar(),
+      // bottomNavigationBar: BottomNavBar(),
       body: Stack(
         children: <Widget>[
           Container(

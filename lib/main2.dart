@@ -58,7 +58,7 @@ class HomeScreen extends StatelessWidget {
         .size; //this gonna give us total height and with of our device
     return Scaffold(
         drawer: NavigationDrawer(email: email, dat: dat),
-        bottomNavigationBar: BottomNavBar(),
+        // bottomNavigationBar: BottomNavBar(),
         body: Builder(
           builder: (context) => Stack(
             children: <Widget>[

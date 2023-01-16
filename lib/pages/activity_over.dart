@@ -41,50 +41,16 @@ class ActivityOver extends StatefulWidget {
 }
 
 class _ActivityOverState extends State<ActivityOver> {
-  // late Map<String, dynamic> valueMap4;
-
-  // List<exModel> myAllDaea4 = [];
-
-  // int m4 = 0;
+ 
   _initData() async {
-    // List<exModel> myAllDaea4 = widget.da;
+    
     level = widget.level;
-    // print(myAllDaea4);
-    //   var response4 = await http.get(
-    //     Uri.parse("http://192.168.1.76:4000/getNormal"),
-    //   );
 
-    //   String jsonsDataString4 = response4.body.toString();
-    //   valueMap4 = json.decode(response4.body);
-    //   List<dynamic> data4 = valueMap4["msg"];
-
-    //   for (var info4 in data4) {
-    //     myAllDaea4.add(exModel(info4["name"], info4["video"], info4["desc"]));
-    //     Newname = info4['name'];
-    //     Newvideo = info4['video'];
-    //     Newdesc = info4['desc'];
-    //     m4 = myAllDaea4.length;
-    //     setState(() {
-    //       Newname = info4['name'];
-    //       Newvideo = info4['video'];
-    //       Newdesc = info4['desc'];
-    //     });
-    //     print(Newvideo.split('assets')[1]);
-    //   }
   }
 
   @override
   void initState() {
     setState(() {
-      // bmi1score = double.parse(widget.dat.split('-')[2]) /
-      //     pow(int.parse(widget.dat.split('-')[3]) / 100, 2);
-      // if (bmi1score >= 25) {
-      //   level = "Overweight";
-      // } else if (bmi1score >= 18.5) {
-      //   level = "Normal";
-      // } else if (bmi1score < 18.5) {
-      //   level = "Underweight";
-      // }
 
       _initData();
     });

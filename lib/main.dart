@@ -466,19 +466,37 @@ class _Loginpage extends State<Loginpage> {
                           if (val.data['success']) {
                             //user not found , so you can register
 
-                            Fluttertoast.showToast(
-                                msg: 's',
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                backgroundColor: Color.fromARGB(255, 0, 0, 0),
-                                textColor: Colors.white,
-                                fontSize: 16);
+                            AuthService().signup(email, password).then((val) {
+                              if (val.data['success']) {
+                                // token = val.data['token'];
+                                Fluttertoast.showToast(
+                                    msg: 'Registration Done',
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    backgroundColor:
+                                        Color.fromARGB(255, 0, 0, 0),
+                                    textColor: Colors.white,
+                                    fontSize: 16);
+                                AuthService.aa = true;
+                              } else if (!val.data['success']) {
+                                // token = val.data['token'];
+                                Fluttertoast.showToast(
+                                    msg: 'Enter All Fields',
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    backgroundColor:
+                                        Color.fromARGB(255, 0, 0, 0),
+                                    textColor: Colors.white,
+                                    fontSize: 16);
+                              }
+                            });
                           } else if (!val.data['success']) {
                             Fluttertoast.showToast(
-                                msg: 'You are already registered',
+                                msg: val.data['msg'],
+                                // msg: 'hh',
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.BOTTOM,
-                                backgroundColor: Color.fromARGB(255, 0, 0, 0),
+                                backgroundColor: Color.fromARGB(255, 1, 0, 0),
                                 textColor: Colors.white,
                                 fontSize: 16);
                           }

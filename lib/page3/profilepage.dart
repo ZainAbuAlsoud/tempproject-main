@@ -252,83 +252,83 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ],
                         ),
-                        Container(
-                            padding: EdgeInsets.all(15),
-                            height: MediaQuery.of(context).size.width / 3,
-                            child: Center(
-                                child: TextField(
-                              cursorColor: Color.fromARGB(255, 79, 9, 107),
-                              controller: dateInput,
-                              //editing controller of this TextField
-                              decoration: InputDecoration(
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 79, 9, 107)),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 79, 9, 107)),
-                                ),
-                                border: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 79, 9, 107)),
-                                ),
-                                icon: Icon(
-                                  Icons.calendar_today,
-                                  color: Color.fromARGB(255, 79, 9, 107),
-                                ), //icon of text field
-                                labelText: "Enter Date",
-                                labelStyle: TextStyle(
-                                    color: Color.fromARGB(255, 79, 9, 107)),
-                              ),
-                              readOnly: true,
-                              //set it true, so that user will not able to edit text
-                              onTap: () async {
-                                DateTime? pickedDate = await showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(1950),
-                                  //DateTime.now() - not to allow to choose before today.
-                                  lastDate: DateTime(2100),
-                                  builder: (context, child) {
-                                    return Theme(
-                                      data: Theme.of(context).copyWith(
-                                        colorScheme: ColorScheme.light(
-                                          primary: Color.fromARGB(255, 212, 191,
-                                              221), // <-- SEE HERE
-                                          onPrimary: Color.fromARGB(
-                                              255, 79, 9, 107), // <-- SEE HERE
-                                          onSurface: Color.fromARGB(
-                                              255, 79, 9, 107), // <-- SEE HERE
-                                        ),
-                                        textButtonTheme: TextButtonThemeData(
-                                          style: TextButton.styleFrom(
-                                            primary: Color.fromARGB(255, 79, 9,
-                                                107), // button text color
-                                          ),
-                                        ),
-                                      ),
-                                      child: child!,
-                                    );
-                                  },
-                                );
+                        // Container(
+                        //     padding: EdgeInsets.all(15),
+                        //     height: MediaQuery.of(context).size.width / 3,
+                        //     child: Center(
+                        //         child: TextField(
+                        //       cursorColor: Color.fromARGB(255, 79, 9, 107),
+                        //       controller: dateInput,
+                        //       //editing controller of this TextField
+                        //       decoration: InputDecoration(
+                        //         enabledBorder: UnderlineInputBorder(
+                        //           borderSide: BorderSide(
+                        //               color: Color.fromARGB(255, 79, 9, 107)),
+                        //         ),
+                        //         focusedBorder: UnderlineInputBorder(
+                        //           borderSide: BorderSide(
+                        //               color: Color.fromARGB(255, 79, 9, 107)),
+                        //         ),
+                        //         border: UnderlineInputBorder(
+                        //           borderSide: BorderSide(
+                        //               color: Color.fromARGB(255, 79, 9, 107)),
+                        //         ),
+                        //         icon: Icon(
+                        //           Icons.calendar_today,
+                        //           color: Color.fromARGB(255, 79, 9, 107),
+                        //         ), //icon of text field
+                        //         labelText: "Enter Date",
+                        //         labelStyle: TextStyle(
+                        //             color: Color.fromARGB(255, 79, 9, 107)),
+                        //       ),
+                        //       readOnly: true,
+                        //       //set it true, so that user will not able to edit text
+                        //       onTap: () async {
+                        //         DateTime? pickedDate = await showDatePicker(
+                        //           context: context,
+                        //           initialDate: DateTime.now(),
+                        //           firstDate: DateTime(1950),
+                        //           //DateTime.now() - not to allow to choose before today.
+                        //           lastDate: DateTime(2100),
+                        //           builder: (context, child) {
+                        //             return Theme(
+                        //               data: Theme.of(context).copyWith(
+                        //                 colorScheme: ColorScheme.light(
+                        //                   primary: Color.fromARGB(255, 212, 191,
+                        //                       221), // <-- SEE HERE
+                        //                   onPrimary: Color.fromARGB(
+                        //                       255, 79, 9, 107), // <-- SEE HERE
+                        //                   onSurface: Color.fromARGB(
+                        //                       255, 79, 9, 107), // <-- SEE HERE
+                        //                 ),
+                        //                 textButtonTheme: TextButtonThemeData(
+                        //                   style: TextButton.styleFrom(
+                        //                     primary: Color.fromARGB(255, 79, 9,
+                        //                         107), // button text color
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        //               child: child!,
+                        //             );
+                        //           },
+                        //         );
 
-                                if (pickedDate != null) {
-                                  print(
-                                    pickedDate,
-                                  ); //pickedDate output format => 2021-03-10 00:00:00.000
-                                  String formattedDate =
-                                      DateFormat('yyyy-MM-dd')
-                                          .format(pickedDate);
-                                  print(
-                                      formattedDate); //formatted date output using intl package =>  2021-03-16
-                                  setState(() {
-                                    dateInput.text =
-                                        formattedDate; //set output date to TextField value.
-                                  });
-                                } else {}
-                              },
-                            ))),
+                        //         if (pickedDate != null) {
+                        //           print(
+                        //             pickedDate,
+                        //           ); //pickedDate output format => 2021-03-10 00:00:00.000
+                        //           String formattedDate =
+                        //               DateFormat('yyyy-MM-dd')
+                        //                   .format(pickedDate);
+                        //           print(
+                        //               formattedDate); //formatted date output using intl package =>  2021-03-16
+                        //           setState(() {
+                        //             dateInput.text =
+                        //                 formattedDate; //set output date to TextField value.
+                        //           });
+                        //         } else {}
+                        //       },
+                        //     ))),
                         Container(
                           height: 55,
                           width: double.infinity,
